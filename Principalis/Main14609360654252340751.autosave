@@ -9,12 +9,11 @@ int corPersInf = #FF0000;
 int corPersPro = #57D894;
 
 int tempoThread = 2; //ms
-int tamP = 20;
+int tamP = 10;
 int tamM = 4;
 Serial ks;
-boolean run = true;
 
-int qt_i_P = 500;
+int qt_i_P = 1000;
 int qt_i_M = 50;
 
 class Person{
@@ -67,17 +66,9 @@ int rd(int num){
     return (int) (random(num));
 }
 
-void keyReleased(){
-    if (keyCode == DOWN){
-        run = false;
-    }else if (keyCode == UP){
-        if (!(run)){
-            run = true;
-            thread("Wrunner");
-        }
-        run = true;
-    }
-}
+// void keyPressed(){
+//     ks.write(key);
+// }
 
 void create_init(){
     Ps = new Person[qt_i_P];
@@ -96,76 +87,71 @@ void create_init(){
 }
 
 void draw(){
-    if (run){
-        background(255,255,255);
-        int qmn,qmi,qmp,qpn,qpi,qpp;
-        
-        qmi=0;
-        qmn=0;
-        qmp=0;
-        qpi=0;
-        qpn=0;
-        qpp=0;
-        //runner();
-        for (Person p : Ps){
-            stroke(1000);
-            if (p.state == "normal"){
-                fill(corPersNor);
-                qpn++;
-            }else if (p.state == "protec"){
-                fill(corPersPro);
-                qpp++;
-            }else{
-                fill(corPersInf);
-                qpi++;
-            }
-
-            p.px += rd(3)-1;
-            p.py += rd(3)-1;
-
-            if (p.px < tamP/2){
-                p.px += 1;
-            }
-            if (p.px > width-tamP/2){
-                p.px -= 1;
-            }
-            if (p.py < tamP/2){
-                p.py += 1;
-            }
-            if (p.py > height-tamP/2){
-                p.py -= 1;
-            }
-
-            circle(p.px,p.py,tamP);
+    background(255,255,255);
+    int qmn,qmi,qmp,qpn,qpi,qpp;
+    
+    qmi=0;
+    qmn=0;
+    qmp=0;
+    qpi=0;
+    qpn=0;
+    qpp=0;
+    //runner();
+    for (Person p : Ps){
+        stroke(1000);
+        if (p.state == "normal"){
+            fill(corPersNor);
+            qpn++;
+        }else if (p.state == "protec"){
+            fill(corPersPro);
+            qpp++;
+        }else{
+            fill(corPersInf);
+            qpi++;
         }
 
-        for (Mosq m : Ms){
-            stroke(1000);
-            if (m.state == "normal"){
-                fill(corMosqNor);
-                qmn++;
-            }else if (m.state == "protec"){
-                fill(corMosqPro);
-                qmp++;
-            }else{
-                fill(corMosqInf);
-                qmi++;
-            }
-            circle(m.px,m.py,tamM);
+        p.px += rd(3)-1;
+        p.py += rd(3)-1;
+
+        if (p.px < tamP/2){
+            p.px += 1;
+        }
+        if (p.px > width-tamP/2){
+            p.px -= 1;
+        }
+        if (p.py < tamP/2){
+            p.py += 1;
+        }
+        if (p.py > height-tamP/2){
+            p.py -= 1;
         }
 
-        print("\n\n");
-        print("\nP: " + qpn + " " + qpi + " " + qpp);
-        print(" M: " + qmn + " " + qmi + " " + qmp);
-        print("\n\n");
+        circle(p.px,p.py,tamP);
     }
+
+    for (Mosq m : Ms){
+        stroke(1000);
+        if (m.state == "normal"){
+            fill(corMosqNor);
+            qmn++;
+        }else if (m.state == "protec"){
+            fill(corMosqPro);
+            qmp++;
+        }else{
+            fill(corMosqInf);
+            qmi++;
+        }
+        circle(m.px,m.py,tamM);
+    }
+
+    print("\n\n");
+    print("\nP: " + qpn + " " + qpi + " " + qpp);
+    print(" M: " + qmn + " " + qmi + " " + qmp);
+    print("\n\n");
 }
 
 void Wrunner(){
     while (true){
-        if (run == false){
-            break;
-        }
         delay(tempoThread);
         runner();
     }
