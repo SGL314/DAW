@@ -1,3 +1,4 @@
+//Dengoso 2
 int corMosqNor = #000000;
 int corMosqInf = #BC1EAD;
 int corPersNor = #4873DE;
