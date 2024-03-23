@@ -9,7 +9,6 @@ int tamM = 4;
 int qt_i_P = 100;
 int qt_i_M = 10;
 
-
 class Person{
     String state = "normal";
     float px = 0;
