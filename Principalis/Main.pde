@@ -1,8 +1,10 @@
 //Dengoso 2
 int corMosqNor = #000000;
 int corMosqInf = #BC1EAD;
+int corMosqPro = #2B2FD6;
 int corPersNor = #4873DE;
 int corPersInf = #FF0000;
+int corPersPro = #57D894;
 
 int tamP = 20;
 int tamM = 4;
@@ -38,7 +40,7 @@ Mosq[] Ms = new Mosq[0];
 void setup(){
     size(800,800);
     create_init();
-    thread("runner");
+    thread("Wrunner");
 }
 
 int Rpx(){
@@ -60,6 +62,8 @@ void create_init(){
         Ps[i] = new Person(Rpx(),Rpy());
         if (i==0){
             Ps[i].state = "infec";
+        }else if (i==1){
+            Ps[i].state = "protec";
         }
     }
     for (int i=0;i<qt_i_M;i++){
@@ -69,11 +73,13 @@ void create_init(){
 
 void draw(){
     background(255,255,255);
-    runner();
+    //runner();
     for (Person p : Ps){
         stroke(1000);
         if (p.state == "normal"){
             fill(corPersNor);
+        }else if (p.state == "protec"){
+            fill(corPersPro);
         }else{
             fill(corPersInf);
         }
@@ -101,6 +107,8 @@ void draw(){
         stroke(1000);
         if (m.state == "normal"){
             fill(corMosqNor);
+        }else if (m.state == "protec"){
+            fill(corMosqPro);
         }else{
             fill(corMosqInf);
         }
@@ -108,12 +116,15 @@ void draw(){
     }
 }
 
+void Wrunner(){
+    while (true){
+        delay(1);
+        runner();
+    }
+}
+
 void runner(){
     int num,rd;
-    boolean didXp = false;
-    boolean didYp = false;
-    boolean didXn = false;
-    boolean didYn = false;
 
     for (Mosq m : Ms){
         if (!(m.did)){
@@ -127,20 +138,30 @@ void runner(){
                     m.px -= 1;
                 }else if (m.px < m.set.px){
                     m.px += 1;
+                }else if (m.py > m.set.py){
+                    m.py -= 1;
+                }else if (m.py < m.set.py){
+                    m.py += 1;
                 }
             }else{
                 if (m.py > m.set.py){
                     m.py -= 1;
                 }else if (m.py < m.set.py){
                     m.py += 1;
+                }else if (m.px > m.set.px){
+                    m.px -= 1;
+                }else if (m.px < m.set.px){
+                    m.px += 1;
                 }
             }
 
             if (m.px == m.set.px && m.py == m.set.py){
-                if (m.set.state == "infec"){
-                    m.state = m.set.state;
-                }else if (m.state == "infec"){
+                if (m.set.state == "normal"){
                     m.set.state = m.state;
+                }else if (m.set.state == "infec" && m.state != "protec"){
+                    m.state = m.set.state;
+                }else if (m.set.state == "protec"){
+                    m.state = "protec";
                 }
                 m.did = false;
             }
