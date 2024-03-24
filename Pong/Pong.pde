@@ -28,8 +28,16 @@ void createThings(){
     ball = new Ball(width/2,diameter/2,vx,vy,diameter);
 }
 
+float distLinear(float a,float b){
+    float res = a-b;
+    if (res<0){
+        return -res;
+    }
+    return res;
+}
+
 void engine(){
-    float timeScale = 0.05f;
+    float timeScale = 0.07f;
     // Field
     if (ball.px < ball.diameter/2 || ball.px > width-ball.diameter/2){
         ball.vx *= -1;
@@ -38,17 +46,31 @@ void engine(){
         ball.vy *= -1;
     }
     //Players
-    // Player[] pls = {pl1,pl2};
-    // if (ball.px < ball.diameter/2 || ball.px > width-ball.diameter/2){
-    //     ball.vx *= -1;
-    // }
-    // if (ball.py < ball.diameter/2 || ball.py > height-ball.diameter/2){
-    //     ball.vy *= -1;
-    // }
-
+    Player[] pls = {pl1,pl2};
+    for (Player pl : pls){
+        if (ball.py >= pl.py && ball.py <= pl.py+pl.length){
+            if (distLinear(ball.px,pl.px) <= ball.diameter/2 || distLinear(ball.px,pl.px+pl.thick) <= ball.diameter/2){
+                ball.vx *= -1;
+            }
+        }
+    }
 
     ball.px += ball.vx * timeScale;
     ball.py += ball.vy * timeScale;
+}
+
+void keyPressed(){
+    int move = 10;
+    if (keyCode == SHIFT){
+        pl1.py-= move;
+    }else if (keyCode == CONTROL){
+        pl1.py+= move;
+    }
+    if (keyCode == UP){
+        pl2.py-= move;
+    }else if (keyCode == DOWN){
+        pl2.py+= move;
+    }
 }
 
 void draw(){
