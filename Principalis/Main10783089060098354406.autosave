@@ -1,11 +1,4 @@
 //Dengoso 2
-/*
- Comportamentos :
- move : bool
- qt_i_P : int
- qt_i_M : int
-*/
-
 import processing.serial.*;
 
 int corMosqNor = #000000;
@@ -17,7 +10,7 @@ int corPersPro = #57D894;
 
 int tempoThread = 2; //ms
 int tamP = 10;
-int tamM = 5;
+int tamM = 4;
 Serial ks;
 boolean run = true;
 
@@ -34,52 +27,24 @@ class Person{
         px = ipx;
         py = ipy;
     }
-    public float dist(Person p){
-        return (float) Math.pow((float) (Math.pow((float)(this.px-p.px),2f) + Math.pow((float)this.py-p.py,2f)),0.5f);
-    }
     public void tendency(){
-        int oui = rd(1);
-        float margem = 50;
-        for (int i=0;i<qt_i_P;i++){
-            Person p = Ps[i];
-            if (this.dist(p) <= tamP){
-                int tipo = rd(4)+1;
-                switch (tipo){
-                    case 1:
-                        this.py++;
-                        p.py--;
-                        break;
-                    case 2:
-                        this.py--;
-                        p.py++;
-                        break;
-                    case 3:
-                        this.px++;
-                        p.px--;
-                        break;
-                    case 4:
-                        this.px--;
-                        p.px++;
-                        break;
-                }
-            }
-        }
-        if (oui == 0){
+        int oui = rd(2);
+        if (oui == 1){
             switch (this.state){
                 case "normal":
-                    if (this.py < 2*height/3 + margem/2){
+                    if (this.py < 2*height/3){
                         this.py++;
                     }
                     break;
                 case "infec":
-                    if (this.py < height/3 + margem/2){
+                    if (this.py < height/3){
                         this.py++;
-                    }else if (this.py > 2*height/3 - margem/2){
+                    }else if (this.py > 2*height/3){
                         this.py--;
                     }
                     break;
                 case "protec":
-                    if (this.py > height/3 -margem/2){
+                    if (this.py > height/3){
                         this.py--;
                     }
                     break;
@@ -100,6 +65,7 @@ class Mosq{
     }
 }
 
+Person rec;
 Person[] Ps = new Person[0];
 Mosq[] Ms = new Mosq[0];
 
@@ -130,10 +96,6 @@ void keyReleased(){
             thread("Wrunner");
         }
         run = true;
-    }else if (keyCode == RIGHT){
-        tempoThread += (tempoThread > 0) ? -1 : 0;
-    }else if (keyCode == LEFT){
-        tempoThread++;
     }
 }
 
@@ -142,10 +104,9 @@ void create_init(){
     Ms = new Mosq[qt_i_M];
     for (int i=0;i<qt_i_P;i++){
         Ps[i] = new Person(Rpx(),Rpy());
-        if (i<10){
+        if (i<4){
             Ps[i].state = "infec";
-        }
-        if (i==727){
+        }else if (i==9){
             Ps[i].state = "protec";
         }
     }
@@ -158,7 +119,6 @@ void draw(){
     if (run){
         background(255,255,255);
         int qmn,qmi,qmp,qpn,qpi,qpp;
-        boolean move = false;
         
         qmi=0;
         qmn=0;
@@ -168,7 +128,7 @@ void draw(){
         qpp=0;
         //runner();
         for (Person p : Ps){
-            stroke(100000);
+            stroke(1000);
             if (p.state == "normal"){
                 fill(corPersNor);
                 qpn++;
@@ -180,10 +140,8 @@ void draw(){
                 qpi++;
             }
 
-            if (move){
-                p.px += rd(3)-1;
-                p.py += rd(3)-1;
-            }
+            p.px += rd(3)-1;
+            p.py += rd(3)-1;
 
             if (p.px < tamP/2){
                 p.px += 1;
@@ -203,7 +161,7 @@ void draw(){
         }
 
         for (Mosq m : Ms){
-            stroke(100000);
+            stroke(1000);
             if (m.state == "normal"){
                 fill(corMosqNor);
                 qmn++;
