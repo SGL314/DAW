@@ -11,7 +11,6 @@ boolean auto = true;
 boolean canRun = true;
 int del = 200;
 int pontuation = 0;
-int[] dirs = new int[0];
 
 int ns = 0;
 int nb = 1;
@@ -25,7 +24,6 @@ class Sim{
     int[][] gridS;
     int dirS;
     int pxS,pyS;
-    int[] movements = new int[0];
     public Sim(int[][] IgridS,int IdirS,int IpxS,int IpyS){
         gridS = IgridS;
         dirS = IdirS;
@@ -35,50 +33,59 @@ class Sim{
     public void movement(){
         int val,apx=0,apy=0,lx=0,ly=0,slx=0,sly=0;
         int[][] gridA = new int[n][n];
-        gridA = this.gridS;
+        gridA = gridS;
         for (int i=0;i<n;i++){
             for (int j=0;j<n;j++){
-                if (this.gridS[i][j] == nb){
-                    this.gridS[i][j] = ns;
+                if (gridS[i][j] == nb){
+                    gridS[i][j] = ns;
                 }
             }
         }
 
-        if (this.pxS >= 0 && this.pxS < n && pyS >= 0 && pyS < n){
-            val = this.gridS[this.pxS][this.pyS];
-            this.gridS[this.pxS][this.pyS] = 0;
-            apx = this.pxS;
-            apy = this.pyS;
+        if (pxS >= 0 && pxS < n && pyS >= 0 && pyS < n){
+            val = gridS[pxS][pyS];
+            gridS[pxS][pyS] = 0;
+            apx = pxS;
+            apy = pyS;
             switch (dirS){
                 case 0:
-                    this.pxS++;
+                    pxS++;
                     break;
                 case 1:
-                    this.pyS--;
+                    pyS--;
                     break;
                 case 2:
-                    this.pxS--;
+                    pxS--;
                     break;
                 case 3:
-                    this.pyS++;
+                    pyS++;
                     break;
             }
-            if (this.pxS >= 0 && this.pxS < n && this.pyS >= 0 && this.pyS < n){
-                if (this.gridS[this.pxS][this.pyS] == nf){
-                    
+            if (pxS >= 0 && pxS < n && pyS >= 0 && pyS < n){
+                if (gridS[pxS][pyS] == nf){
+                    gridS[apx][apy] = nb;
+                    pontuation++;
 
-                }else if (gridA[this.pxS][this.pyS] == nb){
-                    //print("VOCE PERDEU");
-                    //run = false;
+                    int[][] Nsnake = new int[pontuation][2];
+                    for (int p=0;p<pontuation-1;p++){
+                        Nsnake[p] = snake[p];
+                    }
+                    Nsnake[pontuation-1][0] = apx;
+                    Nsnake[pontuation-1][1] = apy;
+                    snake = Nsnake;
+
+                }else if (gridA[pxS][pyS] == nb){
+                    print("VOCE PERDEU");
+                    run = false;
                 }
-                this.gridS[this.pxS][this.pyS] = val;
+                gridS[pxS][pyS] = val;
             }else{
-                //print("VOCE PERDEU");
-                //run = false;
+                print("VOCE PERDEU");
+                run = false;
             }
         }else{
-            //print("VOCE PERDEU");
-            //run = false;
+            print("VOCE PERDEU");
+            run = false;
         }
 
         lx = apx;
@@ -98,7 +105,7 @@ class Sim{
         
 
         for (int p=pontuation-1;p>=0;p--){
-            this.gridS[snake[p][0]][snake[p][1]] = nb;
+            gridS[snake[p][0]][snake[p][1]] = nb;
             if (p==0){
                 lx = snake[p][0];
                 ly = snake[p][1];
@@ -109,7 +116,7 @@ class Sim{
         boolean found = false;
         for (int i=0;i<n;i++){
             for (int j=0;j<n;j++){
-                if (this.gridS[i][j] == nh){
+                if (gridS[i][j] == nh){
                     found = !(found);
                     break;
                 }
@@ -117,7 +124,7 @@ class Sim{
         }
         if (found){
             if (this.pxS >= 0 && this.pxS < n && this.pyS >= 0 && this.pyS < n){
-                if (this.gridS[pxS][this.pyS] == nb){
+                if (this.gridS[pxS][pyS] == nb){
                     return false;
                 }
             }else{
@@ -131,7 +138,7 @@ class Sim{
         int fi=0,fj=0;
         for (int i=0;i<n;i++){
             for (int j=0;j<n;j++){
-                if (this.gridS[i][j] == nf){
+                if (gridS[i][j] == nf){
                     found = !(found);
                     fi = i;
                     fj = j;
@@ -142,7 +149,7 @@ class Sim{
         if (found){
             if (fi==pxS){
                 
-                if (fj>this.pyS && dirS!=1){
+                if (fj>pyS && dirS!=1){
                     dirS = 3;
                 }else if (fj<pyS && dirS!=3){
                     dirS = 1;
@@ -182,7 +189,7 @@ class Sim{
                     case 0:
                         //print("\n" + dirS + ">");
                         if (pxS+1<n){
-                            if (this.gridS[pxS+1][pyS] == nb){
+                            if (gridS[pxS+1][pyS] == nb){
                                 dirS = 1+2*rd(2);
                                 changed = true;
                             }
@@ -195,7 +202,7 @@ class Sim{
                     case 2:
                         //print("\n" + dirS + ">");
                         if (pxS-1>=0){
-                            if (this.gridS[pxS-1][pyS] == nb){
+                            if (gridS[pxS-1][pyS] == nb){
                                 dirS = 1+2*rd(2);
                                 changed = true;
                             }
@@ -209,7 +216,7 @@ class Sim{
                     case 1:
                         //print("\n" + dirS + ">");
                         if (pyS-1<n){
-                            if (this.gridS[pxS][pyS-1] == nb){
+                            if (gridS[pxS][pyS-1] == nb){
                                 dirS = 2*rd(2);
                                 changed = true;
                             }
@@ -223,7 +230,7 @@ class Sim{
                     case 3:
                         //print("\n" + dirS + ">");
                         if (pyS+1>=0){
-                            if (this.gridS[pxS][pyS+1] == nb){
+                            if (gridS[pxS][pyS+1] == nb){
                                 dirS = 2*rd(2);
                                 changed = true;
                             }
@@ -240,9 +247,6 @@ class Sim{
         }else{
             return true;
         }
-    }
-    public void moves(){
-        append(movements, this.dirS);
     }
 }
 
@@ -286,12 +290,6 @@ void createSnakes(int qt,boolean sinceFoundFood){
             sims[i].movement();
             result = sims[i].veri();
             if (result == false){
-                break;
-            }
-            sims[i].moves();
-            if (j == maximum-1){
-                dirs = new int[qt];
-                dirs = sims[i].movements;
                 break;
             }
         }
@@ -479,7 +477,6 @@ void newFood(){
 void automat(){
     boolean found = false;
     int fi=0,fj=0;
-    
     for (int i=0;i<n;i++){
         for (int j=0;j<n;j++){
             if (grid[i][j] == nf){
@@ -524,9 +521,7 @@ void automat(){
         boolean changed = true;
         while (changed){
 
-            //createSnakes(10,true);
-            //dir = dirs[0];
-            //delay(100);
+            createSnakes(10);
 
             changed = false;
             switch (dir){
@@ -587,7 +582,6 @@ void automat(){
                     break;
             }
         }
-        
     }else{
         print("VOCE GANHOU");
     }

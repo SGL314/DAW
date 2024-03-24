@@ -1,0 +1,174 @@
+int n = 51;
+int[][] grid = new int[n][n];
+int[][] snake = new int[0][0];
+
+int corSnakeBody = #2B2FD6;
+int corSnakeHead = #BC1EAD;
+int corFood = #FF0000;
+
+boolean run = true;
+int del = 200;
+int pontuation = 0;
+
+int ns = 0;
+int nb = 1;
+int nh = 2;
+int nf = 3;
+int dir = -1;
+int px = (n-1)/2;
+int py = (n-1)/2;
+
+void setup(){
+    size(816,816);
+    init();
+}
+
+int rd(int num){
+    return (int) (random(num));
+}
+
+void init(){
+    grid[px][py] = nh;
+    dir = 1;
+}
+
+void keyReleased(){
+    if (keyCode == DOWN){
+        dir = 3;
+    }else if (keyCode == UP){
+        dir = 1;
+    }else if (keyCode == RIGHT){
+        dir = 0;
+    }else if (keyCode == LEFT){
+        dir = 2;
+    }else if (keyCode == CONTROL){
+        run = (run) ? false : true;
+    }
+}
+
+void toDraw(){
+    int cor = #00FF00;
+    float c = width/n;
+    float h = height/n;
+    for (int i=0;i<n;i++){
+        for (int j=0;j<n;j++){
+            stroke(225);
+            switch (grid[i][j]){
+                case 0:
+                    cor = #FFFFFF;
+                    break;
+                case 1:
+                    cor = corSnakeBody;
+                    break;
+                case 2:
+                    cor = corSnakeHead;
+                    break;
+                case 3:
+                    cor = corFood;
+                    break;
+            }
+            fill(cor);
+            rect((int)h*i,(int)c*j,(int)c,(int)h);
+        }
+    }
+}
+
+void movement(){
+    int val,apx=0,apy=0;
+    print("\nPontuation : " + pontuation);
+
+    if (px >= 0 && px < n && py >= 0 && py < n){
+        val = grid[px][py];
+        grid[px][py] = 0;
+        apx = px;
+        apy = py;
+        switch (dir){
+            case 0:
+                px++;
+                break;
+            case 1:
+                py--;
+                break;
+            case 2:
+                px--;
+                break;
+            case 3:
+                py++;
+                break;
+        }
+        if (px >= 0 && px < n && py >= 0 && py < n){
+            if (grid[px][py] == nf){
+                grid[apx][apy] = nb;
+                pontuation++;
+
+                int Nsnake = new int[pontuation][2];
+                for (int p=0;p<pontuation-1;p++){
+                    Nsnake[p] = snake[p];
+                }
+                Nsnake[pontuation-1] = {apx,apy};
+                snake = Nsnake;
+
+            }else if (grid[px][py] == nf){
+                print("VOCE PERDEU");
+                run = false;
+            }
+            grid[px][py] = val;
+        }else{
+            print("VOCE PERDEU");
+            run = false;
+        }
+    }else{
+        print("VOCE PERDEU");
+        run = false;
+    }
+
+    for (int p=0;p<pontuation){
+        
+    }
+}
+
+void newFood(){
+    int pi,pj;
+    boolean found = false;
+    for (int i=0;i<n;i++){
+        for (int j=0;j<n;j++){
+            if (grid[i][j] == 0){
+                found = !(found);
+                break;
+            }
+        }
+    }
+    if (!(found)){
+        print("VOCE GANHOU");
+    }else{
+        while (true){
+            pi = rd(n);
+            pj = rd(n);
+            if (grid[pi][pj] == 0){
+                grid[pi][pj] = nf;
+                break;
+            }
+        }
+    }
+}
+
+void draw(){
+    boolean found = false;
+    background(#FFFFFF);
+    delay(del);
+    if (run){ 
+        movement();
+        for (int i=0;i<n;i++){
+            for (int j=0;j<n;j++){
+                if (grid[i][j] == nf){
+                    found = !(found);
+                    break;
+                }
+            }
+        }
+        if (!(found)){
+            newFood();
+        }
+    }
+    toDraw();
+}
