@@ -3,6 +3,7 @@
 Ball ball;
 Player pl1;
 Player pl2;
+float lastPx = 0;
 // Adjusts
 int thick = 50;
 int length = 100;
@@ -10,7 +11,7 @@ int velMax = 50;
 int diameter = 20;
 
 void setup(){
-    size(800,800);
+    size(400,800);
     createThings();
 }
 
@@ -43,6 +44,7 @@ float distLinear(float a,float b){
 }
 
 void engine(){
+    
     float timeScale = 0.07f;
     // Field
     if (ball.px < ball.diameter/2 || ball.px > width-ball.diameter/2){
@@ -58,6 +60,11 @@ void engine(){
             if (distLinear(ball.px,pl.px) <= ball.diameter/2 || distLinear(ball.px,pl.px+pl.thick) <= ball.diameter/2){
                 ball.vx *= -1;
             }
+        }
+        if (pl.py < 0){
+            pl.py = 0;
+        }else if (pl.py+pl.length > height){
+            pl.py = height-pl.length;
         }
     }
 
@@ -108,6 +115,19 @@ void draw(){
     circle(ball.px,ball.py,ball.diameter);
     pontuation();
     Write();
+
+    Algus();
+}
+
+void Algus(){
+    float move = 4.9f;
+    if (ball.vx < 0){
+        if (pl1.py+pl1.length/2 < ball.py){
+            pl1.py += move;
+        }else if (pl1.py+pl1.length/2 > ball.py){
+            pl1.py -= move;
+        }
+    }
 }
 
 void Write(){
