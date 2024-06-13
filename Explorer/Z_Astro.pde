@@ -14,6 +14,7 @@ class Astro{
   int lineTraj = 0;
   boolean isStar = false;
   boolean onLux = false;
+  String nome;
   
   ArrayList<Point> rastro = new ArrayList<Point>();
 
@@ -56,7 +57,7 @@ class Astro{
     }
   }
   
-  Astro(double massa,double x,double y){
+  Astro(String nome,double massa,double x,double y){
     this.omega = ((float)random(1000) +1)/50;
     this.ang = 0;
     //funcRaw(0);
@@ -65,8 +66,9 @@ class Astro{
     this.massa = massa;
     this.x = x;
     this.y = y;
+    this.nome = nome;
   }
-  Astro(double massa,double x,double y,double vel,double angVel){
+  Astro(String nome,double massa,double x,double y,double vel,double angVel){
     this.omega = ((float)random(1000) +1)/50;
     this.ang = 0;
     //funcRaw(1);
@@ -77,6 +79,7 @@ class Astro{
     this.y = y;
     this.vel = vel;
     this.angVel = angVel;
+    this.nome = nome;
   }
 
   public void init(int qt){

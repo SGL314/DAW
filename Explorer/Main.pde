@@ -6,23 +6,26 @@ int qtMoons = 1;
 int qtStars = 2;
 int qt = qtCentr+qtMoons+qtBlHl+qtStars;
 double G = 6.6743*pow(10,-2);
-boolean run = false;
 float tx=0,ty=0;
-int posObj = 0;
+int posObj = 0; // Posição de u astro em astros
 float coeDil = 1;
 int count = 0;
 int lineTraj = 0;
-boolean passFrame = false;
-boolean do_passFrame = false;
 int show_lineVel = 0;
 int show_lineFor = 0;
 int loop = -1;
 float fps = 0;
+boolean do_passFrame = false;
 int FraRat =100;
+boolean passFrame = false;
+boolean run = false;
 boolean do_FraRat = false;
 double coeTemp = 1;
 // prints
 boolean print_loop = false;
+//Clicking
+int lastTimeClicked;
+Astro lastAstroClicked = null;
 
 void setup(){
   size(1000,1000);
@@ -35,8 +38,6 @@ void setup(){
   thread("counterFps");
 }
 
-
-
 void createAstros(){
   astros = new Astro[qt];
   int coeDist = 250;
@@ -47,19 +48,24 @@ void createAstros(){
   int CoemassStar = 1;
   int CoemassStar2 = 0;
   boolean do_simulation = false;
+  String[] nomes = {"Sol","Betelguese","Mercúrio","Venus","Terra","Marte","Júpter","Sirius","Europa","k"};
+  // io: 2.7Mkm
+  // calisto: 1.8827Mkm
+  // ganímedes: 1.074Kkm
+  // europa: 670.9Kkm
   for (int i=0;i<astros.length;i++){
     if (i==1){
       D = -75-(i-1)*coeDist;
       V = -(4-i/2-1);
     }
     if (i < qtStars){
-      astros[i] = new Astro(100000,0,0,velStar,0);
+      astros[i] = new Astro(nomes[i],100000,0,0,velStar,0);
       
       astros[i].massa = (1*pow(10,5)-0.00001)*CoemassStar + 0.001;
       astros[i].init(qt);
       astros[i].cor = #FFF412;
       if (i == 1){
-        astros[i] = new Astro(100000,0,0,velStar2,180);
+        astros[i] = new Astro(nomes[i],100000,0,0,velStar2,180);
         astros[i].y = -30000;
         astros[i].massa = (5*pow(10,6)-0.00001)*CoemassStar2 + 0.001;
         astros[i].init(qt);
@@ -70,7 +76,7 @@ void createAstros(){
     }else if (i < qtCentr+qtStars){
       d = -100-(i-qtStars)*coeDist;
       v = (double) -(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -velStar;
-      astros[i] = new Astro(1000,0,(float) d,(float) v,180);
+      astros[i] = new Astro(nomes[i],1000,0,(float) d,(float) v,180);
       astros[i].init(qt);
       if (do_simulation)
         if (i != qtCentr+qtStars-1){
@@ -84,7 +90,7 @@ void createAstros(){
     }else if (i < qtCentr+qtStars+qtBlHl){
       v = 0;
       d = -15000;
-      astros[i] = new Astro(1000000,0,(float) d,(float) v,180);
+      astros[i] = new Astro(nomes[i],1000000,0,(float) d,(float) v,180);
       astros[i].cor = #6BD1F7;
       astros[i].massa = (10*pow(10,6)-1)*CoemassBlHl + 1;
       astros[i].funcRaw(0);
@@ -95,11 +101,10 @@ void createAstros(){
       int pos = 5;
       d = -100-(i-qtStars-qtBlHl-qtCentr+pos-1)*coeDist-20;
       v = (double) -(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -velStar-velOrbit;
-      astros[i] = new Astro(0.01,0,(float) d,(float) v,180);
+      astros[i] = new Astro(nomes[i],0.01,0,(float) d,(float) v,180);
       astros[i].funcRaw(2);
       astros[i].init(qt);
     }else{
-      
       d = -75-(qt-qtCentr-qtBlHl-qtStars)*coeDist;
       v = (double) (Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000);
       a = 360/((qt-qtCentr-qtBlHl-qtStars)) * (i-(qt-qtCentr-qtBlHl));
@@ -117,7 +122,7 @@ void createAstros(){
       
       
       
-      astros[i] = new Astro(1,dx,dy,(float) v,setAngVel);
+      astros[i] = new Astro(nomes[i],1,dx,dy,(float) v,setAngVel);
       astros[i].init(qt);
     }
   }
@@ -253,7 +258,7 @@ void allTheThings(){
       ast.lineVel = show_lineVel;
       ast.lineFor = show_lineFor;
       ast.onLux = onLux;
-      ecri(ast.x+", "+ast.y,ast.cor,(float) (ast.x*coeDil+(width/2+tx)),(float) (ast.y*coeDil+(height/2+ty)),20,10);
+      ecri(ast.nome,ast.cor,(float) (ast.x*coeDil+(width/2+tx)),(float) (ast.y*coeDil+(height/2+ty)),20,10);
     }
     do_passFrame = false;
   }else{
@@ -264,7 +269,7 @@ void allTheThings(){
       ast.lineVel = show_lineVel;
       ast.lineFor = show_lineFor;
       ast.onLux = onLux;
-      ecri(ast.x+", "+ast.y,ast.cor,(float) (ast.x*coeDil+(width/2+tx)),(float) (ast.y*coeDil+(height/2+ty)),20,10);
+      ecri(ast.nome,ast.cor,(float) (ast.x*coeDil+(width/2+tx)),(float) (ast.y*coeDil+(height/2+ty)),20,10);
     }
   }
   // After
@@ -368,10 +373,12 @@ void mouseWheel(MouseEvent event) {
 void mousePressed(){
   // Verifica se clicou no astro
   int x = (int) (mouseX-width/2-tx),y = (int) (mouseY-height/2-ty);
-  Out.print(x,y);
   for (Astro ast : astros){
     if (ast.x-ast.r <= x/coeDil && x/coeDil <= ast.x+ast.r && ast.y-ast.r <= y/coeDil && y/coeDil <= ast.y+ast.r ){
-      Out.print(ast.x,ast.y);
+      Out.print(ast.nome);
+      if (millis()-lastTimeClicked <= 500 && lastAstroClicked != null) if (lastAstroClicked.nome == ast.nome) focusAstro(ast);
+      lastTimeClicked = millis();
+      lastAstroClicked = ast;
     }
   }
 }
@@ -388,6 +395,14 @@ void counterFps(){
     last = loop;
     delay(1000);
     fps = (loop - last);
+  }
+}
+
+void focusAstro(Astro ast1){
+  int i = 0;
+  for (Astro ast2 : astros){
+    if (ast1.nome == ast2.nome) posObj = i;
+    i++;
   }
 }
 
