@@ -363,7 +363,10 @@ void toShowInAstro(){
     dr.build();
   }
   ecri(astros[astroInto].nome,#FFFFFF,width/2-textWidth(astros[astroInto].nome),50,50,2); // nome em cima
-  ecri(""+astros[astroInto].massa,#FFFFFF,50,height*4/5,25,2);
+  ecri(""+astros[astroInto].massa,#FFFFFF,25,height*4/5,25,2);
+  // for (Astro ast : astros){
+  //   if (ast != )
+  // }
 }
 
 boolean showAstroByDistance(Astro ast){
