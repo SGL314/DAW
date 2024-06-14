@@ -15,6 +15,7 @@ class Astro{
   boolean isStar = false;
   boolean onLux = false;
   String nome;
+  int qtLines = 0;
   
   ArrayList<Point> rastro = new ArrayList<Point>();
 
@@ -147,7 +148,7 @@ class Astro{
     while (millis()-m<segs*1000);
   }
 
-  private void lux(){
+  private Draw[] lux(int tam){
     stroke(0);
     float r1=0,r2=0,g1=0,g2=0,b1=0,b2=0,tot = (int) pow(16,6);
     int dist = 200,p=1,resCor;
@@ -172,37 +173,48 @@ class Astro{
     r1=0;
     g1=0;
     b1=0;
-
+    Draw[] draws = new Draw[dist];
+    this.qtLines=0;
     while (p<=dist){
       r1 += -varR;
       g1 += -varG;
       b1 += -varB;
-      noStroke();
-      fill(color(r1,g1,b1,5));
-      ellipse((float) this.x,(float) this.y,r+dist*coeDist-p*coeDist,r+dist*coeDist-p*coeDist);
+      draws[p-1] = new Draw(color(r1,g1,b1,5),(float) this.x,(float) this.y,r+dist*coeDist-p*coeDist,r+dist*coeDist-p*coeDist,"ellipseNsT");
       p++;
+      this.qtLines++;
     }
+    return draws;
   }
 
   public Draw[] show(double temp){
+    Draw[] draws = new Draw[3];
+    
+
     float coe = 1f;
     synchronized(this){
+      int tam = 3;
       if (this.isStar && this.onLux){
-        lux();
+        Draw[] res = lux(tam);
+        draws = new Draw[tam+qtLines];
+        int i =0;
+        for (Draw dr : res){
+          draws[3+i] = dr;
+          i++;
+        }
       }
       if (this.lineTraj == 1){
+        draws = new Draw[3+rastro.size()];
         fill(this.cor);
         stroke(this.cor);
         for(int k = 0; k < rastro.size(); k++){
-          point((float)rastro.get(k).x,(float)rastro.get(k).y);
+          draws[3+k] = new Draw(this.cor,this.cor,(float)rastro.get(k).x,(float)rastro.get(k).y,"point");
         }
       }
     }
 
-    Draw[] draws = new Draw[3];
-    draws[0] = new Draw("None");
-    draws[1] = new Draw("None");
-    draws[2] = new Draw("None");
+    draws[0] = new Draw("None"); // força
+    draws[1] = new Draw("None"); // velocidade
+    draws[2] = new Draw("None"); // astro
     draws[0] = new Draw(0,this.cor,(float) this.x,(float) this.y,this.r,"ellipse");
     
     if (this.lineVel == 1){
