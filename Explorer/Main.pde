@@ -284,7 +284,6 @@ void forces(){
 }
 
 void draw(){
-  imagemApresentada();
   allTheThings(!(intoAstro));
   if (intoAstro) toShowInAstro();
   ecrivent();
@@ -347,7 +346,7 @@ void allTheThings(boolean showAstros){
   if (showAstros)
   for (Draw[] drs : showAfter){
     for (Draw dr : drs){
-      if (dr.type.equals("text") || dr.type.equals("ellipseNsT")){
+      if (dr.type.equals("text")){
         dr.x += tx;
         dr.y += ty;
       }
@@ -363,11 +362,8 @@ void toShowInAstro(){
   for (Draw dr : astros[astroInto].show(coeTemp)){
     dr.build();
   }
-  ecri(astros[astroInto].nome,#FFFFFF,width/2-textWidth(astros[astroInto].nome),50,50,2);
-}
-
-void imagemApresentada(){
-  
+  ecri(astros[astroInto].nome,#FFFFFF,width/2-textWidth(astros[astroInto].nome),50,50,2); // nome em cima
+  ecri(""+astros[astroInto].massa,#FFFFFF,50,height*4/5,25,2);
 }
 
 boolean showAstroByDistance(Astro ast){
