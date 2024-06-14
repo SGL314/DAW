@@ -372,7 +372,7 @@ void imagemApresentada(){
 
 boolean showAstroByDistance(Astro ast){
   if (ast.isStar) return true;
-  if (ast.r*2*coeDil < 2) return false;
+  if (ast.r*2*coeDil <= 4) return false;
   return true;
 }
 
