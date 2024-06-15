@@ -183,14 +183,12 @@ void createAstros(){
   astros[p] = new Astro(nomes[6],1000.0,0.0,d,v,3.141593);
   astros[p].funcRaw(2);
 
-  d -= 40;
-  v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
-  p++;
-  astros[p] = new Astro(nomes[8],0.009999999776482582,0.0,d,v,3.141593);
-  astros[p].funcRaw(3);
-  for (Astro ast : astros){
-    ast.init(qt);
-  }
+  // d -= 40;
+  // v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
+  // p++;
+  // astros[p] = new Astro(nomes[8],0.009999999776482582,0.0,d,v,3.141593);
+  // astros[p].funcRaw(3);
+  
 
   // Retira os nulos
   int quantidade=0;
@@ -199,14 +197,21 @@ void createAstros(){
   for (int i=0;i<quantidade;i++){
     if (astros[i] == null){
       for (int j=i+1;j<quantidade;j++) astros[j-1] = astros[j];
+      continue;
     }
     novaQuantidade++;
   }
+  print(novaQuantidade);
   Astro[] newAstros = new Astro[novaQuantidade];
   for (int i=0;i<novaQuantidade;i++){
     newAstros[i] = astros[i];
   }
-  newAstros = astros;
+  astros = newAstros;
+  //print(ind(astros));
+  // Inicia os astros
+  for (Astro ast : astros){
+    ast.init(qt);
+  }
 }
 
 void realloc(int p,int pObjSum){
@@ -287,7 +292,6 @@ void forces(){
   int p = 0;
   for (Astro a1 : astros){
     for (Astro a2 : astros){
-      
       if (a1 == a2){
         continue;
       }
@@ -319,6 +323,7 @@ void allTheThings(boolean showAstros){
   if (coeDil < 0.063){
     onLux = true;
   }
+  
   
   
   // Engine
@@ -382,8 +387,51 @@ void toShowInAstro(){
   posObj = astroInto;
   int corFundoIntoAstro = #000000;//#6ED9ED
   background(corFundoIntoAstro);
-  for (Draw dr : astros[astroInto].show(coeTemp)){
+  double ang, dist;
+  Astro astroInto_obj = astros[astroInto];
+  for (Draw dr : astroInto_obj.show(coeTemp)){
     dr.build();
+  }
+  for (Astro ast : astros){
+    if (ast != astroInto_obj){
+      ang = -angulo(astroInto_obj,ast);
+      dist = distLin(astroInto_obj,ast);
+      float px1,py1,px2,py2,px3,py3,px4,py4,px,py;
+      px1 = (float) ((-width/2+100)*cos((float) ang*PI/180)+astroInto_obj.x);
+      py1 = (float) ((-width/2+100)*sin((float) ang*PI/180)+astroInto_obj.y);
+      px2 = (float) ((-width/2+30)*cos((float) ang*PI/180)+astroInto_obj.x);
+      py2 = (float) ((-width/2+30)*sin((float) ang*PI/180)+astroInto_obj.y);
+      
+      px = (float) ((-width/2+20)*cos((float) ang*PI/180)+astroInto_obj.x);
+      py = (float) ((-width/2+20)*sin((float) ang*PI/180)+astroInto_obj.y);
+
+      px3 = (float) ((-width/2+30)*cos((float) (ang-1)*PI/180)+astroInto_obj.x);
+      py3 = (float) ((-width/2+30)*sin((float) (ang-1)*PI/180)+astroInto_obj.y);
+      px4 = (float) ((-width/2+30)*cos((float) (ang+1)*PI/180)+astroInto_obj.x);
+      py4 = (float) ((-width/2+30)*sin((float) (ang+1)*PI/180)+astroInto_obj.y);
+
+      stroke(#00FF00);
+      line((float) px1,(float) py1,(float) px2,(float) py2); // reta
+      line((float) px,(float) py,(float) px3,(float) py3);// seta lado esquero
+      line((float) px,(float) py,(float) px4,(float) py4);//seta lado direito
+      float angle = (float) (((-ang-180)+360)%360)*PI/180;
+
+      float x,y;
+      if (90 >= angle*180/PI || 270 <= angle*180/PI){
+      px1 = (float) ((-width/2+100+textWidth(ast.nome))*cos((float) ang*PI/180)+astroInto_obj.x);
+      py1 = (float) ((-width/2+100+textWidth(ast.nome))*sin((float) ang*PI/180)+astroInto_obj.y);
+      }
+      x = (float) (px1-astroInto_obj.x);
+      y = (float) (py1-astroInto_obj.y);
+      angle = atan(y/x);
+      translate((float) astroInto_obj.x,(float) astroInto_obj.y);
+      rotate((float) angle);
+      Out.println(px1-astroInto_obj.x);
+      text(ast.nome,(float) (x/cos(angle)),(float) (0));
+      rotate((float) -angle);
+      translate((float) -astroInto_obj.x,(float) -astroInto_obj.y);
+
+    }
   }
   ecri(astros[astroInto].nome,#FFFFFF,width/2-textWidth(astros[astroInto].nome),50,50,2); // nome em cima
   ecri(""+astros[astroInto].massa,#FFFFFF,25,height*4/5,25,2);
