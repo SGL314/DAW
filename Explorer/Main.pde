@@ -426,8 +426,12 @@ void toShowInAstro(){
       angle = atan(y/x);
       translate((float) astroInto_obj.x,(float) astroInto_obj.y);
       rotate((float) angle);
-      Out.println(px1-astroInto_obj.x);
-      text(ast.nome,(float) (x/cos(angle)),(float) (0));
+      //Out.println(px1-astroInto_obj.x);
+      //dist = round((float) dist)/1000;
+      float distShowed = round((float) dist*1000);
+      distShowed /= 1000;
+      print(distShowed+"\n");
+      text(ast.nome+"\n"+distShowed,(float) (x/cos(angle)),(float) (0));
       rotate((float) -angle);
       translate((float) -astroInto_obj.x,(float) -astroInto_obj.y);
 
