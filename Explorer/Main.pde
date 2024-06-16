@@ -143,12 +143,8 @@ void createAstros(){
   // }
   // cria tudo
   int p=-1;
-  // -14
-  // -6
-  // -8
-  // 
   p++;
-  float vSol = -6;
+  float vSol = -0;
   astros[p] = new Astro(nomes[0],100000.0,0.0,0.0,vSol,0.0);
   astros[p].funcRaw(1);
   astros[p].isStar = true;
@@ -183,11 +179,11 @@ void createAstros(){
   astros[p] = new Astro(nomes[6],1000.0,0.0,d,v,3.141593);
   astros[p].funcRaw(2);
 
-  // d -= 40;
-  // v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
-  // p++;
-  // astros[p] = new Astro(nomes[8],0.009999999776482582,0.0,d,v,3.141593);
-  // astros[p].funcRaw(3);
+  d -= 20;
+  v = (double) -astros[p-1].vel-1.8267867965;
+  p++;
+  astros[p] = new Astro(nomes[8],0.009999999776482582,0.0,d,v,3.141593);
+  astros[p].funcRaw(3);
   
 
   // Retira os nulos
@@ -323,9 +319,6 @@ void allTheThings(boolean showAstros){
   if (coeDil < 0.063){
     onLux = true;
   }
-  
-  
-  
   // Engine
   ArrayList<Draw[]> showAfter = new ArrayList<Draw[]>();
   if (run || do_passFrame){
@@ -368,6 +361,12 @@ void allTheThings(boolean showAstros){
     tx = (float)(-astros[posObj].x*coeDil);
     ty = (float)(-astros[posObj].y*coeDil);
   }
+  translate(width/2+tx,height/2+ty);
+  translate(-(width/2+tx),-(height/2+ty));
+  fill(#FF0000);
+  textSize(40);
+  scale(1);
+  text("ola",300,300);
   translate(width/2+tx,height/2+ty);
   scale(coeDil);
   // After
@@ -437,8 +436,23 @@ void toShowInAstro(){
 
     }
   }
-  ecri(astros[astroInto].nome,#FFFFFF,width/2-textWidth(astros[astroInto].nome),50,50,2); // nome em cima
-  ecri(""+astros[astroInto].massa,#FFFFFF,25,height*4/5,25,2);
+  // translate(-(width/2+tx),-(height/2+ty));
+  // fill(#FFFFFF);
+  // textSize(50/coeDil);
+  // scale(1);
+  // text(astros[astroInto].nome,(width/2-textWidth(astros[astroInto].nome))/coeDil,(50)/coeDil); // nome em cima
+  // text(""+astros[astroInto].massa,(25)/coeDil,(height*4/5)/coeDil);
+  // translate(width/2+tx,height/2+ty);
+  // scale(coeDil);
+
+  translate(-(width/2+tx),-(height/2+ty));
+  fill(#FF0000);
+  textSize(40);
+  scale(1);
+  text("ola",300,300);
+  translate(width/2+tx,height/2+ty);
+  scale(coeDil);
+
   // for (Astro ast : astros){
   //   if (ast != )
   // }
@@ -475,11 +489,15 @@ void keyReleased(){
   if (key == ' '){
     run = (run == false) ? true : false;
   }else if (keyCode == LEFT){
-    posObj -= 1;
-    print(posObj + "\n");
+    if (intoAstro)
+      astroInto -= 1;
+    else 
+      posObj -= 1;
   }else if (keyCode == RIGHT){
-    posObj += 1;
-    print(posObj + "\n");
+    if (intoAstro)
+      astroInto += 1;
+    else 
+      posObj += 1;
   }else if (keyCode == SHIFT){
     posObj = -1;
     print(posObj + "\n");
@@ -510,6 +528,7 @@ void keyReleased(){
   }else if (posObj >= qt){
     posObj = -1;
   }
+  astroInto = (astroInto+qt)%qt;
   if (coeDil < 0.001){
     coeDil = 0.001;
   }
