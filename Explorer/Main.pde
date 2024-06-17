@@ -34,7 +34,7 @@ int butaoDireitoMouse = 37;
 int butaoEsquerdoMouse = 39;
 
 void setup(){
-  size(1000,1000);
+  size(1500,1000);
   background(#000000);
   createAstros();
   
@@ -148,42 +148,49 @@ void createAstros(){
   astros[p] = new Astro(nomes[0],100000.0,0.0,0.0,vSol,0.0);
   astros[p].funcRaw(1);
   astros[p].isStar = true;
+  astros[p].r = 1.5/2;
   astros[p].cor = #FFF412;
 
   d = -57.9;
   v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
   p++;
   astros[p] = new Astro(nomes[2],3.3,0.0,d,v,3.141593);astros[p].funcRaw(2);
+  astros[p].r = 0.002439;
 
   d = -108.2;
   v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
   p++;
   astros[p] = new Astro(nomes[3],48.675,0.0,d,v,3.141593);
   astros[p].funcRaw(2);
+  astros[p].r = 0.0060518;
 
   d = -149.6;
   v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
   p++;
   astros[p] = new Astro(nomes[4],59.7237,0.0,d,v,3.141593);
   astros[p].funcRaw(2);
+  astros[p].r = 0.006371;
 
   d = -227.9;
   v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
   p++;
   astros[p] = new Astro(nomes[5],6.4171,0.0,d,v,3.141593);
   astros[p].funcRaw(2);
+  astros[p].r = 0.0033895;
 
   d = -778.3;
   v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
   p++;
   astros[p] = new Astro(nomes[6],1000.0,0.0,d,v,3.141593);
   astros[p].funcRaw(2);
+  astros[p].r = 0.069911;
 
   d -= 20;
   v = (double) -astros[p-1].vel-1.8267867965;
   p++;
   astros[p] = new Astro(nomes[8],0.009999999776482582,0.0,d,v,3.141593);
   astros[p].funcRaw(3);
+  astros[p].r = 0.000670;
   
 
   // Retira os nulos
@@ -445,13 +452,20 @@ void toShowInAstro(){
   // translate(width/2+tx,height/2+ty);
   // scale(coeDil);
 
-  translate(-(width/2+tx),-(height/2+ty));
-  fill(#FF0000);
-  textSize(40);
-  scale(1);
-  text("ola",300,300);
-  translate(width/2+tx,height/2+ty);
-  scale(coeDil);
+  // translate(-(width/2+tx),-(height/2+ty));
+  // fill(#FF0000);
+  // textSize(40);
+  // scale(1);// translate(-(width/2+tx),-(height/2+ty));
+  // fill(#FFFFFF);
+  // textSize(50/coeDil);
+  // scale(1);
+  // text(astros[astroInto].nome,(width/2-textWidth(astros[astroInto].nome))/coeDil,(50)/coeDil); // nome em cima
+  // text(""+astros[astroInto].massa,(25)/coeDil,(height*4/5)/coeDil);
+  // translate(width/2+tx,height/2+ty);
+  // scale(coeDil);
+  // text("ola",300,300);
+  // translate(width/2+tx,height/2+ty);
+  // scale(coeDil);
 
   // for (Astro ast : astros){
   //   if (ast != )
