@@ -369,23 +369,8 @@ void allTheThings(boolean showAstros){
     ty = (float)(-astros[posObj].y*coeDil);
   }
   translate(width/2+tx,height/2+ty);
-
-  translate(-(width/2+tx),-(height/2+ty));
-  fill(#FF0000);
-  scale(1);
-  textSize(40);
-  text("ola",300,300);
-  translate(width/2+tx,height/2+ty);
-  // scale(coeDil);
-
-
-  translate(-(width/2+tx),-(height/2+ty));
-  fill(#FF0000);
-  scale(1);
-  textSize(40);
-  text("pão",400,400);
-  translate(width/2+tx,height/2+ty);
   scale(coeDil);
+  
   // After
   if (showAstros)
   for (Draw[] drs : showAfter){
@@ -489,32 +474,25 @@ boolean showAstroByDistance(Astro ast){
 }
 
 void ecrivent(){
-  // translate(-(width/2+tx),-(height/2+ty));
-  // scale(1);
-  // String texto = "coeDil : " + coeDil;
 
-  // float tam = 50;
-  // float padding = 10;
-  // textSize(tam);
-  // fill(#FFFFFF);
-  // float difX = -width/2*0;
-  // float difY = -height/2*0;
-  // text(texto,(padding+difX),(difY+height-tam-padding));
-
+  scale(1/coeDil);
   translate(-(width/2+tx),-(height/2+ty));
-  fill(#0000FF);
-  scale(1);scale(1);scale(1);
-  textSize(40);
-  text("ola",300,300);
+  String texto = "coeDil : " + coeDil;
+
+  float tam = 50;
+  float padding = 10;
+  textSize(tam);
+  fill(#FFFFFF);
+  text(texto,(padding),height-tam-padding);
+
+
+  ecri2("Fps : "+fps,#FFFFFF,10,10,50,10);
+  ecri2("FraRat : "+FraRat,#FFFFFF,10,10+50+5,50,10);
+  ecri2("coeTemp : "+coeTemp,#00FF00,width-200,10,25,10);
+
+
   translate(width/2+tx,height/2+ty);
   scale(coeDil);
-
-  // ecri2("Fps : "+fps,#FFFFFF,10,10,50,10);
-  // ecri2("FraRat : "+FraRat,#FFFFFF,10,10+50+5,50,10);
-  // ecri2("coeTemp : "+coeTemp,#00FF00,width-200,10,25,10);
-
-  // translate(width/2+tx,height/2+ty);
-  // scale(coeDil);
 }
 
 void keyPressed(){
@@ -627,7 +605,7 @@ void ecri(String texto,int cor,float x,float y,float tam,float padding){
 void ecri2(String texto,int cor,float x,float y,float tam,float padding){
   textSize(tam);
   fill(cor);
-  text(texto,(x-width/2),(-height/2+y+tam));
+  text(texto,(x),(y+tam));
 }
 
 void counterFps(){
