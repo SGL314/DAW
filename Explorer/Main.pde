@@ -144,53 +144,53 @@ void createAstros(){
   // cria tudo
   int p=-1;
   p++;
-  float vSol = -0;
+  float vSol = -6;
   astros[p] = new Astro(nomes[0],100000.0,0.0,0.0,vSol,0.0);
   astros[p].funcRaw(1);
   astros[p].isStar = true;
-  astros[p].r = 1.5/2;
+  //astros[p].r = 1.5/2;
   astros[p].cor = #FFF412;
 
   d = -57.9;
   v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
   p++;
   astros[p] = new Astro(nomes[2],3.3,0.0,d,v,3.141593);astros[p].funcRaw(2);
-  astros[p].r = 0.002439;
+  //astros[p].r = 0.002439;
 
   d = -108.2;
   v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
   p++;
   astros[p] = new Astro(nomes[3],48.675,0.0,d,v,3.141593);
   astros[p].funcRaw(2);
-  astros[p].r = 0.0060518;
+  //astros[p].r = 0.0060518;
 
   d = -149.6;
   v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
   p++;
   astros[p] = new Astro(nomes[4],59.7237,0.0,d,v,3.141593);
   astros[p].funcRaw(2);
-  astros[p].r = 0.006371;
+  //astros[p].r = 0.006371;
 
   d = -227.9;
   v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
   p++;
   astros[p] = new Astro(nomes[5],6.4171,0.0,d,v,3.141593);
   astros[p].funcRaw(2);
-  astros[p].r = 0.0033895;
+  //astros[p].r = 0.0033895;
 
   d = -778.3;
   v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
   p++;
   astros[p] = new Astro(nomes[6],1000.0,0.0,d,v,3.141593);
   astros[p].funcRaw(2);
-  astros[p].r = 0.069911;
+  //astros[p].r = 0.069911;
 
   d -= 20;
   v = (double) -astros[p-1].vel-1.8267867965;
   p++;
   astros[p] = new Astro(nomes[8],0.009999999776482582,0.0,d,v,3.141593);
   astros[p].funcRaw(3);
-  astros[p].r = 0.000670;
+  //astros[p].r = 0.000670;
   
 
   // Retira os nulos
@@ -479,17 +479,23 @@ boolean showAstroByDistance(Astro ast){
 }
 
 void ecrivent(){
+  translate(-(width/2+tx),-(height/2+ty));
+  scale(1);
+
   String texto = "coeDil : " + coeDil;
   float tam = 50;
   float padding = 10;
-  textSize(tam/(coeDil));
+  textSize(tam);
   fill(#FFFFFF);
-  float difX = -width/2-tx;
-  float difY = -height/2-ty;
-  text(texto,(padding+difX)/coeDil,(difY+height-tam-padding)/(coeDil));
-  ecri("Fps : "+fps,#FFFFFF,10,10,50,10);
-  ecri("FraRat : "+FraRat,#FFFFFF,10,10+50+5,50,10);
-  ecri("coeTemp : "+coeTemp,#00FF00,width-200,10,25,10);
+  float difX = -width/2*0;
+  float difY = -height/2*0;
+  text(texto,(padding+difX),(difY+height-tam-padding));
+  ecri2("Fps : "+fps,#FFFFFF,10,10,50,10);
+  ecri2("FraRat : "+FraRat,#FFFFFF,10,10+50+5,50,10);
+  ecri2("coeTemp : "+coeTemp,#00FF00,width-200,10,25,10);
+
+  translate(width/2+tx,height/2+ty);
+  scale(coeDil);
 }
 
 void keyPressed(){
@@ -598,6 +604,11 @@ void ecri(String texto,int cor,float x,float y,float tam,float padding){
   textSize(tam/(coeDil));
   fill(cor);
   text(texto,(x-width/2-tx)/coeDil,(-height/2-ty+y+tam)/(coeDil));
+}
+void ecri2(String texto,int cor,float x,float y,float tam,float padding){
+  textSize(tam);
+  fill(cor);
+  text(texto,(x-width/2),(-height/2+y+tam));
 }
 
 void counterFps(){
