@@ -1,4 +1,4 @@
-Astro[] astros = new Astro[0];
+4Astro[] astros = new Astro[0];
 int coeVel = 10;
 int qtCentr = 5;
 int qtBlHl = 1;
@@ -66,60 +66,131 @@ void createAstros(){
     qtStars -=1;
     qtBlHl -=1;
   }
+  // for (int i=0;i<astros.length;i++){
+  //   if (i==1){
   D = -75;
   V = -(4-1/2-1);
+  //   }
+  //   if (!(createAnotherSars) && (i==1 || i==7)) continue;
+  //   if (i < qtStars){
+  //     astros[i] = new Astro(nomes[i],100000,0,0,velStar,0);
+      
+  //     astros[i].massa = (1*pow(10,5)-0.00001)*CoemassStar + 0.001;
+  //     astros[i].init(qt);
+  //     astros[i].cor = #FFF412;
+  //     if (i == 1){
+  //       astros[i] = new Astro(nomes[i],100000,0,0,velStar2,180);
+  //       astros[i].y = -30000;
+  //       astros[i].massa = (5*pow(10,6)-0.00001)*CoemassStar2 + 0.001;
+  //       astros[i].init(qt);
+  //       astros[i].cor = #F23918;
+  //     }
+  //     astros[i].funcRaw(1);
+  //     astros[i].isStar = true;
+  //   }else if (i < qtCentr+qtStars){
+  //     d = -100-(i-qtStars)*coeDist;
+  //     v = (double) -(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -velStar;
+  //     astros[i] = new Astro(nomes[i],1000,0,(float) d,(float) v,180);
+  //     astros[i].init(qt);
+  //     if (do_simulation)
+  //       if (i != qtCentr+qtStars-1){
+  //         astros[i].velX = -100;
+  //         astros[i].massa = 0.0001;
+  //       }else{
+  //         astros[i].velX = 0;
+  //         velStar = 0;
+  //       }
+  //     astros[i].funcRaw(2);
+  //   }else if (i < qtCentr+qtStars+qtBlHl){
+  //     v = 0;
+  //     d = -15000;
+  //     astros[i] = new Astro(nomes[i],1000000,0,(float) d,(float) v,180);
+  //     astros[i].cor = #6BD1F7;
+  //     astros[i].massa = (10*pow(10,6)-1)*CoemassBlHl + 1;
+  //     astros[i].funcRaw(0);
+  //     astros[i].init(qt);
+  //     astros[i].isStar = true;
+  //   }else if (i < qtCentr+qtStars+qtBlHl+qtMoons){
+  //     velOrbit = 1.8267867965;
+  //     int pos = 5;
+  //     d = -100-(i-qtStars-qtBlHl-qtCentr+pos-1)*coeDist-20;
+  //     v = (double) -(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -velStar-velOrbit;
+  //     astros[i] = new Astro(nomes[i],0.01,0,(float) d,(float) v,180);
+  //     astros[i].funcRaw(2);
+  //     astros[i].init(qt);
+  //   }else{
+  //     d = -75-(qt-qtCentr-qtBlHl-qtStars)*coeDist;
+  //     v = (double) (Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000);
+  //     a = 360/((qt-qtCentr-qtBlHl-qtStars)) * (i-(qt-qtCentr-qtBlHl));
 
-
-
+  //     dx = cos((float)(a*PI/180))*d;
+  //     dy = sin((float)(a*PI/180))*d;
+  //     if (i%2 == 1){
+  //       a+=0; 
+  //     }
+  //     setAngVel = a+90;
+  //     if (setAngVel >= 360){
+  //       setAngVel -= 360;
+  //     }
+  //     //print(a + "\n");
+      
+      
+      
+  //     astros[i] = new Astro(nomes[i],1,dx,dy,(float) v,setAngVel);
+  //     astros[i].init(qt);
+  //   }
+  //   Out.println("new Astro(nomes["+i+"],"+astros[i].massa+","+astros[i].x+","+astros[i].y+""+astros[i].vel+","+astros[i].angVel+");");
+  // }
+  // cria tudo
   int p=-1;
   p++;
   float vSol = -6;
   astros[p] = new Astro(nomes[0],100000.0,0.0,0.0,vSol,0.0);
   astros[p].funcRaw(1);
   astros[p].isStar = true;
-  astros[p].r = 1.5/2;
+  //astros[p].r = 1.5/2;
   astros[p].cor = #FFF412;
 
   d = -57.9;
   v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
   p++;
   astros[p] = new Astro(nomes[2],3.3,0.0,d,v,3.141593);astros[p].funcRaw(2);
-  // astros[p].r = 0.002439;
+  //astros[p].r = 0.002439;
 
   d = -108.2;
   v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
   p++;
   astros[p] = new Astro(nomes[3],48.675,0.0,d,v,3.141593);
   astros[p].funcRaw(2);
-  astros[p].r = 0.0060518;
+  //astros[p].r = 0.0060518;
 
   d = -149.6;
   v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
   p++;
   astros[p] = new Astro(nomes[4],59.7237,0.0,d,v,3.141593);
   astros[p].funcRaw(2);
-  astros[p].r = 0.006371;
+  //astros[p].r = 0.006371;
 
   d = -227.9;
   v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
   p++;
   astros[p] = new Astro(nomes[5],6.4171,0.0,d,v,3.141593);
   astros[p].funcRaw(2);
-  astros[p].r = 0.0033895;
+  //astros[p].r = 0.0033895;
 
   d = -778.3;
   v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
   p++;
   astros[p] = new Astro(nomes[6],1000.0,0.0,d,v,3.141593);
   astros[p].funcRaw(2);
-  astros[p].r = 0.069911;
+  //astros[p].r = 0.069911;
 
   d -= 20;
   v = (double) -astros[p-1].vel-1.8267867965;
   p++;
   astros[p] = new Astro(nomes[8],0.009999999776482582,0.0,d,v,3.141593);
   astros[p].funcRaw(3);
-  astros[p].r = 0.000670;
+  //astros[p].r = 0.000670;
   
 
   // Retira os nulos
@@ -246,7 +317,7 @@ void draw(){
   allTheThings(!(intoAstro));
   if (intoAstro) toShowInAstro();
   ecrivent();
-  // mousePosition();
+  mousePosition();
 }
 
 void allTheThings(boolean showAstros){
@@ -360,7 +431,7 @@ void toShowInAstro(){
       //dist = round((float) dist)/1000;
       float distShowed = round((float) dist*1000);
       distShowed /= 1000;
-      fill(ast.cor);
+      print(distShowed+"\n");
       text(ast.nome+"\n"+distShowed,(float) (x/cos(angle)),(float) (0));
       rotate((float) -angle);
       translate((float) -astroInto_obj.x,(float) -astroInto_obj.y);
@@ -493,8 +564,8 @@ void mouseWheel(MouseEvent event) {
   if (coeDil < 0.001){
     coeDil = 0.001;
   }
-  int tam_vals = 45;
-  float[] vals = {0.001, 0.0015, 0.00225, 0.0033749999, 0.0050625, 0.00759375, 0.011390625, 0.017085936, 0.025628904, 0.038443357, 0.057665035, 0.08649755, 0.12974633, 0.1946195, 0.29192924, 0.43789387, 0.6568408, 1.0, 1.4778918, 2.2168376, 3.3252563, 4.9878845, 7.481827, 11.22274, 16.83411, 25.251165, 37.876747, 56.81512, 85.22268, 127.834015, 191.75102, 287.62653, 431.4398, 647.1596999999999, 970.73955, 1456.109325, 2184.1639875, 3276.24598125, 4914.368971875, 7371.5534578125,7500,8000,9000,9500,10000};
+  int tam_vals = 33;
+  float[] vals = {0.001, 0.0015, 0.00225, 0.0033749999, 0.0050625, 0.00759375, 0.011390625, 0.017085936, 0.025628904, 0.038443357, 0.057665035, 0.08649755, 0.12974633, 0.1946195, 0.29192924, 0.43789387, 0.6568408, 1.0, 1.4778918, 2.2168376, 3.3252563, 4.9878845, 7.481827, 11.22274, 16.83411, 25.251165, 37.876747, 56.81512, 85.22268, 127.834015, 191.75102, 287.62653, 431.4398}; // 33
   int i=0;
   for (float val : vals){
     if (val == coeDil){
