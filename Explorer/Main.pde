@@ -68,59 +68,53 @@ void createAstros(){
   }
   D = -75;
   V = -(4-1/2-1);
+  float[] raws = {1.5/2,0.002439,0.0060518,0.006371,0.0033895,0.069911,0.000670};
+  int[] colors = {#FFF412,#868686,#C9BB8C,#383A6F,#EA542B,#E3BA79,#E87D3F};
 
+  // Cria os astros manualmente
+  {
+    int p=-1;
+    p++;
+    float vSol = -6;
+    astros[p] = new Astro(nomes[0],100000.0,0.0,0.0,vSol,0.0);
+    astros[p].funcRaw(1);
+    astros[p].isStar = true;
+    astros[p].cor = #FFF412;
 
+    d = -57.9;
+    v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
+    p++;
+    astros[p] = new Astro(nomes[2],3.3,0.0,d,v,3.141593);astros[p].funcRaw(2);
 
-  int p=-1;
-  p++;
-  float vSol = -6;
-  astros[p] = new Astro(nomes[0],100000.0,0.0,0.0,vSol,0.0);
-  astros[p].funcRaw(1);
-  astros[p].isStar = true;
-  astros[p].r = 1.5/2;
-  astros[p].cor = #FFF412;
+    d = -108.2;
+    v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
+    p++;
+    astros[p] = new Astro(nomes[3],48.675,0.0,d,v,3.141593);
+    astros[p].funcRaw(2);
 
-  d = -57.9;
-  v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
-  p++;
-  astros[p] = new Astro(nomes[2],3.3,0.0,d,v,3.141593);astros[p].funcRaw(2);
-  // astros[p].r = 0.002439;
+    d = -149.6;
+    v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
+    p++;
+    astros[p] = new Astro(nomes[4],59.7237,0.0,d,v,3.141593);
+    astros[p].funcRaw(2);
 
-  d = -108.2;
-  v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
-  p++;
-  astros[p] = new Astro(nomes[3],48.675,0.0,d,v,3.141593);
-  astros[p].funcRaw(2);
-  astros[p].r = 0.0060518;
+    d = -227.9;
+    v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
+    p++;
+    astros[p] = new Astro(nomes[5],6.4171,0.0,d,v,3.141593);
+    astros[p].funcRaw(2);
+    d = -778.3;
+    v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
+    p++;
+    astros[p] = new Astro(nomes[6],1000.0,0.0,d,v,3.141593);
+    astros[p].funcRaw(2);
 
-  d = -149.6;
-  v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
-  p++;
-  astros[p] = new Astro(nomes[4],59.7237,0.0,d,v,3.141593);
-  astros[p].funcRaw(2);
-  astros[p].r = 0.006371;
-
-  d = -227.9;
-  v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
-  p++;
-  astros[p] = new Astro(nomes[5],6.4171,0.0,d,v,3.141593);
-  astros[p].funcRaw(2);
-  astros[p].r = 0.0033895;
-
-  d = -778.3;
-  v = (double) (-(Math.SqRt((float) (Math.Pow(V,2) * (D/d)))) * Math.SqRt(astros[0].massa/10000) -vSol)* (-1);
-  p++;
-  astros[p] = new Astro(nomes[6],1000.0,0.0,d,v,3.141593);
-  astros[p].funcRaw(2);
-  astros[p].r = 0.069911;
-
-  d -= 20;
-  v = (double) -astros[p-1].vel-1.8267867965;
-  p++;
-  astros[p] = new Astro(nomes[8],0.009999999776482582,0.0,d,v,3.141593);
-  astros[p].funcRaw(3);
-  astros[p].r = 0.000670;
-  
+    d -= 20;
+    v = (double) -astros[p-1].vel-1.8267867965;
+    p++;
+    astros[p] = new Astro(nomes[8],0.009999999776482582,0.0,d,v,3.141593);
+    astros[p].funcRaw(3);
+  }
 
   // Retira os nulos
   int quantidade=0;
@@ -139,6 +133,12 @@ void createAstros(){
     newAstros[i] = astros[i];
   }
   astros = newAstros;
+  int i=0;
+  for (Astro astro : astros){
+    astro.r = raws[i];
+    astro.cor = colors[i];
+    i++;
+  }
   //print(ind(astros));
   // Inicia os astros
   for (Astro ast : astros){
@@ -257,10 +257,10 @@ void allTheThings(boolean showAstros){
   }
   // Engine
   ArrayList<Draw[]> showAfter = new ArrayList<Draw[]>();
+  
   if (run || do_passFrame){
     loop += 1;
     if (print_loop) print(loop + "\n");
-    background(0);
     forces();
     for (Astro ast : astros){
       ast.update(coeTemp);
@@ -278,7 +278,6 @@ void allTheThings(boolean showAstros){
     }
     do_passFrame = false;
   }else{
-    background(0);
     for (Astro ast : astros){
       showAfter.add(ast.show(coeTemp));
       ast.lineTraj = lineTraj;
@@ -299,6 +298,7 @@ void allTheThings(boolean showAstros){
   }
   translate(width/2+tx,height/2+ty);
   scale(coeDil);
+  background(0);
   
   // After
   if (showAstros)
@@ -367,33 +367,6 @@ void toShowInAstro(){
 
     }
   }
-  // translate(-(width/2+tx),-(height/2+ty));
-  // fill(#FFFFFF);
-  // textSize(50/coeDil);
-  // scale(1);
-  // text(astros[astroInto].nome,(width/2-textWidth(astros[astroInto].nome))/coeDil,(50)/coeDil); // nome em cima
-  // text(""+astros[astroInto].massa,(25)/coeDil,(height*4/5)/coeDil);
-  // translate(width/2+tx,height/2+ty);
-  // scale(coeDil);
-
-  // translate(-(width/2+tx),-(height/2+ty));
-  // fill(#FF0000);
-  // textSize(40);
-  // scale(1);// translate(-(width/2+tx),-(height/2+ty));
-  // fill(#FFFFFF);
-  // textSize(50/coeDil);
-  // scale(1);
-  // text(astros[astroInto].nome,(width/2-textWidth(astros[astroInto].nome))/coeDil,(50)/coeDil); // nome em cima
-  // text(""+astros[astroInto].massa,(25)/coeDil,(height*4/5)/coeDil);
-  // translate(width/2+tx,height/2+ty);
-  // scale(coeDil);
-  // text("ola",300,300);
-  // translate(width/2+tx,height/2+ty);
-  // scale(coeDil);
-
-  // for (Astro ast : astros){
-  //   if (ast != )
-  // }
 }
 
 boolean showAstroByDistance(Astro ast){
@@ -467,6 +440,8 @@ void keyReleased(){
     lineTraj = (lineTraj == 1) ? 0 : 1;
   }else if (key == 's'){
     intoAstro = false;
+  }else if (key == 'e'){
+    gotoAstro(astros[posObj]);
   }
   
   if (posObj <-1){

@@ -50,7 +50,7 @@ class Draw{
     void build(){
         switch (type){
             case "ellipse":
-                stroke(this.stroke);
+                noStroke();
                 fill(this.fill);
                 ellipse(this.x,this.y,this.r,this.r);
                 break;
@@ -66,7 +66,7 @@ class Draw{
             case "text":
                 ecri(this.text,this.cor,this.x,this.y,this.tam,this.padding);
                 break;
-            case "point":
+            case"point":
                 fill(this.cor);
                 stroke(this.stroke);
                 point(this.x,this.y);
