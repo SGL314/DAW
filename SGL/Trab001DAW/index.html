@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trabalho 1 DAW</title>
+    <link rel="stylesheet" href="estilo.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+</head>
+<body>
+    <div class="topo">
+        <h1>Página Inicial</h1>
+        <h3 id="velocity">Velocity</h3>
+    </div>
+    <script type="module" src="ball.js"></script>
+    <script id="classes">
+        let balls = [];
+
+        // Classes
+        class Ball{
+            constructor(raio,px,py,vx,vy){
+                this.raio = raio;
+                this.px = px;
+                this.py = py;
+                this.vx = vx;
+                this.vy = vy;
+                this.color = color(0,0,0);
+            }
+
+            log(){
+                this.px += this.vx;
+                this.py += this.vy;
+
+                if (this.px+this.raio > width  || this.px < this.raio) this.vx *= -1;
+                if (this.py+this.raio > height || this.py < this.raio) this.vy *= -1;
+
+                // collisions
+
+                for (var ball of balls){
+                    console.log(this.dist(ball)<this.raio*2);
+                    if (ball != this && this.dist(ball)<this.raio){
+                        this.color = color(red(this.color)+1,green(this.color),blue(this.color));
+                        if (red(this.color)+1>255) this.color = color(red(this.color),green(this.color)+1,blue(this.color));
+                        if (green(this.color)+1>255) this.color = color(red(this.color),green(this.color),blue(this.color)+1);
+
+                        ball.vx = -(ball.vx+this.vx)/2;
+                        ball.vy = -(ball.vy+this.vy)/2;
+                        this.vx = (ball.vx+this.vx)/2;
+                        this.vy = (ball.vy+this.vy)/2;
+
+                        if (this.raio+this.px < width) this.px += this.raio;
+                        if (this.raio+this.py < height) this.py += this.raio;
+                    }
+                }
+            }
+
+            dist(ball){
+                var d = pow(pow(ball.px-this.px,2)+pow(ball.py-this.py,2),0.5);
+                return d;
+            }
+
+            show(){
+                fill(this.color);
+                circle(this.px,this.py,this.raio);
+            }
+        }
+
+        // Index
+
+        
+
+        function setup(){
+            createCanvas(400,400);
+            createBalls(10,20);
+        }
+        function createBalls(raio,qtd){
+            var variVelocity = 10;
+            for (var i =0;i<qtd;i++){
+                balls.push(new Ball(raio,random(width),random(height),random(variVelocity*2)-variVelocity,random(variVelocity*2)-variVelocity));
+            }
+        }
+        function draw(){
+            background(255,128,64);
+            things();
+            imprimir();
+        }
+        function things(){
+            for (let ball of balls){
+                ball.log();
+                ball.show();
+
+            }
+        }
+        function imprimir(){
+            document.getElementById("velocity").innerHTML = "velocity: ";
+        }
+
+        // Auxiliares
+
+        // function random(value) {
+        //     return Math.floor(Math.random() * value)    ;
+        // }
+    </script>
+</body>
+</html>
