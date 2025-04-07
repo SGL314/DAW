@@ -6,11 +6,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
 </head>
 <body>
-    <div class="topo">
-        <h1>Página Inicial</h1>
-        <h3 id="velocity">Velocity</h3>
-    </div>
-    <script type="module" src="ball.js"></script>
+    <div class="botoes"></div>
+    <div class="login"></div>
+    <div class="creditos"></div>
+    <div class="arquivos"></div>
+    <div class="janelas"></div>
+    <div class="texto"></div>
+    <div class="display"></div>
+    <div class="output"></div>
+    <div class="sap2"></div>
+    <div id="velocity">Velocity</div>
+
+    <!-- <script type="module" src="ball.js"></script> -->
     <script id="classes">
         let balls = [];
 
@@ -68,7 +75,8 @@
         
 
         function setup(){
-            createCanvas(400,400);
+            let canvas = createCanvas(1920*30/100,1080*50/100);
+            canvas.id("sap2");
             createBalls(10,20);
         }
         function createBalls(raio,qtd){
