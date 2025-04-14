@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Exercício 1</title>
+    <meta charset="UTF-8">
+    <style>
+        p{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cabeçalho</h1>
+    <p>Primeiro parágrafo</p>
+    <p>Segundo parágrafo</p>
+    <a href="index.html">Principal</a>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Exercício 2</title>
+    <meta charset="UTF-8">
+    <!-- #: para 'id'
+     .: para 'class' --> 
+    <style>
+        #para1{ 
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cabeçalho H1</h1>
+    <p id="para1" >Parágrafo 1</p>
+    <p>Outro parágrafo</p>
+    <a href="index.html">Principal</a>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Exercício 3</title>
+    <meta charset="UTF-8">
+    <style>
+        .colortext{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cabeçalho H1</h1>
+    <p >Parágrafo 1</p>
+    <p class="colortext">Outro parágrafo</p>
+    <p class="colortext">Também é um parágrafo tão em graça quando o anterior</p>
+    <a href="index.html">Principal</a>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Exercício 4</title>
+    <meta charset="UTF-8">
+    <style>
+        h1, p{
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cabeçalho H1</h1>
+    <h2>Cabeçalho H2</h2>
+    <p >Parágrafo 1</p>
+    <p class="colortext">Outro parágrafo</p>
+    <p>Outro Parágrafo</p>
+    <a href="index.html">Principal</a>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Exercício 5</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="MeuCSS.css">
+</head>
+<body>
+    <h1>Cabeçalho H1</h1>
+    <h2>Cabeçalho H2</h2>
+    <p >Parágrafo 1</p>
+    <p class="colortext">Outro parágrafo</p>
+    <p>Outro Parágrafo</p>
+    <a href="index.html">Principal</a>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Exercício 6</title>
+    <meta charset="UTF-8">
+    <style>
+        body{
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cabeçalho H1</h1>
+    <h2>Cabeçalho H2</h2>
+    <p >Parágrafo 1</p>
+    <p class="colortext">Outro parágrafo</p>
+    <p>Outro Parágrafo</p>
+    <a href="index.html">Principal</a>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Exercício 7</title>
+    <meta charset="UTF-8">
+    <style>
+        p{
+            border-style: dotted;
+            border-radius: 4px;
+            border-color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cabeçalho H1</h1>
+    <h2>Cabeçalho H2</h2>
+    <p >Parágrafo 1</p>
+    <p class="colortext">Outro parágrafo</p>
+    <p>Outro Parágrafo</p>
+    <a href="index.html">Principal</a>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Exercício 8</title>
+    <meta charset="UTF-8">
+    <style>
+        p{
+            border-top-style: dotted;
+            border-radius: 4px;
+            border-top-color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cabeçalho H1</h1>
+    <h2>Cabeçalho H2</h2>
+    <p >Parágrafo 1</p>
+    <p class="colortext">Outro parágrafo</p>
+    <p>Outro Parágrafo</p>
+    <a href="index.html">Principal</a>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Exercício 9</title>
+    <meta charset="UTF-8">
+    <style>
+        p{
+            border-style: solid;
+            border-radius: 10px;
+            border-color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cabeçalho H1</h1>
+    <h2>Cabeçalho H2</h2>
+    <p >Parágrafo 1</p>
+    <p class="colortext">Outro parágrafo</p>
+    <p>Outro Parágrafo</p>
+    <a href="index.html">Principal</a>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Exercício 10</title>
+    <meta charset="UTF-8">
+    <style>
+        h1{
+            background-color: lightblue;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1> H1 H1 H1 </h1>
+    <p>Parágrafo 1.....P1 P1 P1</p>
+    <a href="index.html">Principal</a>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Exercício 11</title>
+    <meta charset="UTF-8">
+    <style>
+        p{
+            background-color: lightblue;
+            padding-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1> H1 H1 H1 </h1>
+    <p>Parágrafo 1.....P1 P1 P1</p>
+    <a href="index.html">Principal</a>
+</body>
+</html>
+
+p{
+    color: yellow
+}
+.colortext{ 
+    color: green; 
+}
+
+h1,h2{
+    font-family: 'NewTimes';
+}
