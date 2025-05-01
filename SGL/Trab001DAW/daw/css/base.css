@@ -26,6 +26,29 @@ h1, h2, h3 {
   gap: 1em;
 }
 
+.middle-part {
+  display: flex;
+  flex-direction: column;
+  /* background: ; */
+}
+
+.janelas {
+  background-color: #222;
+  color: #dcdcaa;
+  padding: 0.5em;
+  min-height: 15%;
+  border: 1px solid #444;
+
+  max-height: 2em;
+  min-height: 2em;
+}
+
+.right-part {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 .footer {
   text-align: center;
   padding: 1em;

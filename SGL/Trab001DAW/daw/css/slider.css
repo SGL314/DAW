@@ -1,0 +1,24 @@
+
+.slider {
+  background: red;
+  min-width: 20px;
+  border-color: #1e1e1e;
+  color: #1e1e1e;
+}
+.slider:read-write {
+  border-color: #1e1e1e;
+}
+.slider:focus{
+  outline: none;
+}
+
+.alca {
+  width: 15px;
+  height: 15px;
+  border-radius: 5px;
+  background-color: #252526;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: nwse-resize;
+}
