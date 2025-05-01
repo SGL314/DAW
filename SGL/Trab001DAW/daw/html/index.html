@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador SAP2</title>
+  <link rel="icon" type="image/x-icon" href="http://www.coltec.ufmg.br/coltec-ufmg/wp-content/uploads/2018/05/cropped-logo-0.png">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/buttons.css">
+  <link rel="stylesheet" href="../css/editor.css">
+  <link rel="stylesheet" href="../css/output.css">
+  <link rel="stylesheet" href="../css/login.css">
+  <link rel="stylesheet" href="../css/windows.css">
+</head>
+<body class="dark-theme">
+  <header class="top-bar">
+    <h1>Simulador SAP2 <BR></h1>
+    <div class="buttons">
+      <button class="btn">COMPILAR</button>
+      <button class="btn">EXECUTAR</button>
+      <button class="btn">HZ</button>
+      <button class="btn">TEMPO</button>
+      <button class="btn">CONF</button>
+    </div>
+  </header>
+
+  <main class="main-area">
+    <section class="editor">
+      <textarea placeholder="Insira o código aqui..."></textarea>
+    </section>
+
+    <section class="hex-display">
+      <h2>HEXA - DISPLAY</h2>
+      <div class="hex-output">--:--:--</div>
+    </section>
+
+    <section class="output">
+      <h2>OUTPUT</h2>
+      <pre class="output-log">Aguardando execução...</pre>
+    </section>
+  </main>
+
+  <aside class="login-window">
+    <h3>Login</h3>
+    <input type="text" placeholder="Utilizador">
+    <input type="password" placeholder="Senha">
+    <button class="btn">Entrar</button>
+  </aside>
+
+  <footer class="footer">
+    <p>PROCESSING | CRÉDITOS</p>
+  </footer>
+</body>
+</html>

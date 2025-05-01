@@ -1,0 +1,21 @@
+.hex-display, .output {
+  flex: 1;
+  background-color: #1e1e1e;
+  border: 1px solid #444;
+  padding: 1em;
+}
+
+.hex-output {
+  font-size: 1.5em;
+  color: #9cdcfe;
+  margin-top: 0.5em;
+}
+
+.output-log {
+  background-color: #252526;
+  color: #dcdcaa;
+  padding: 1em;
+  height: 100px;
+  overflow-y: auto;
+  border: 1px solid #444;
+}
