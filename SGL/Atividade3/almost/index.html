@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Concessionaria</title>
+  <style>
+  
+  </style>
+</head>
+<body>
+
+    <h1>Concessionária</h1>
+
+    <div>
+
+        Marca: 
+        <input type="text"
+                id="marca"/> 
+        
+
+        Modelo: 
+        <input type="text"
+                id="modelo"/> 
+        
+        Ano: 
+        <input type="text"
+                id="ano"/> 
+        
+
+        <button onclick="adicionarCarro()">Adicionar Carro</button>
+
+    </div>
+
+
+    <div>
+        <h2>Carros Disponíveis</h2>
+        <ul id="carros-lista"> </ul>   
+    </div>
+
+    <div>
+        <h2>Ligar Carro</h2>
+        
+        <input type="text" id="nomeCarro" placeholder="Nome do Carro" />
+        <button onclick="ligarCarro(document.getElementById('nomeCarro').value)">Ligar Carro</button>
+        <div id="carro-info"></div>
+    </div>
+
+  <script>
+    const concessionaria = {
+        nome: "Cocessionaria do Zé",
+        endereco: "Rua das Flores, 123",
+        carros: [
+            { nome: "Fusca Volkswagen 1970", marca: "Volkswagen", modelo: "Fusca", ano: 1970 },
+            { nome: "Civic Honda 2020", marca: "Honda", modelo: "Civic", ano: 2020 },
+            { nome: "Onix hevrolet 2021", marca: "Chevrolet", modelo: "Onix", ano: 2021 }
+        ]
+    }
+
+    function listarCarrosPorMarca(marca) {
+        const carrosFiltrados = concessionaria.carros.filter(carro => carro.marca === marca);
+        return carrosFiltrados.map(carro => carro.nome);
+    }
+
+    function criarCarro(marca, modelo, ano) {
+      return {
+        nome: `${marca} ${modelo} ${ano}`,
+        marca: marca,
+        modelo: modelo,
+        ano: ano
+      };
+    }
+
+    function adicionarCarro() {
+        const marca = document.getElementById('marca').value;
+        const modelo = document.getElementById('modelo').value;
+        const ano = document.getElementById('ano').value;
+
+        if (marca && modelo && ano) {
+            const novoCarro = criarCarro(marca, modelo, ano);
+            concessionaria.carros.push(novoCarro);
+            listarCarros();
+        }
+    }
+
+    function listarCarros() {
+        const lista = document.getElementById("carros-lista");
+        lista.innerHTML = "";
+        concessionaria.carros.forEach(carro => {
+            const item = document.createElement("li");
+            item.textContent = `${carro.nome} - ${carro.marca} - ${carro.modelo} - ${carro.ano}`;
+            lista.appendChild(item);
+        });
+    }
+
+
+    function ligarCarro(nomeCarro) {
+        const carro = concessionaria.carros.find(c => c.nome === nomeCarro);
+        const infoDiv = document.getElementById("carro-info");
+        if (carro) {
+            infoDiv.textContent = `O carro ${carro.nome} está ligado!`;
+        } else {
+            infoDiv.textContent = "Carro não encontrado!";
+        }
+    }
+
+    // lista os carros
+
+    carros = concessionaria.carros;
+
+    for (let i = 0; i < carros.length; i++) {
+        const item = document.createElement("li");
+        item.textContent = `${carros[i].nome} - ${carros[i].marca} - ${carros[i].modelo} - ${carros[i].ano}`;
+        document.getElementById("carros-lista").appendChild(item);
+    }
+    
+  </script>
+
+</body>
+</html>
