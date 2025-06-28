@@ -12,46 +12,13 @@
     <h2 id="e_a">Inicial: </h2>
     <h2 id="e_e">Fim: </h2>
     <script src="script.js"></script>
-    <!-- <script>
-var nums = [];
-const qtd = 10;
-const vari = [0,9];
 
-
-function create(){
-    for (var i=0;i<qtd;i++){
-        nums[i] = Math.floor(Math.random()*(vari[1]+1)+vari[0]);
-    }
-    //
-    show("start");
-}
-
-function main(){
-    
-}
-
-function show(where){
-    document.getElementById(where).innerHTML = where+":";
-    for (var i=0;i<qtd;i++){
-        document.getElementById(where).innerHTML += " "+nums[i];    
-    }
-}
-
-function sorting(){
-    //
-    //
-    show("end");
-}
-
-function setup(){
-    createCanvas(600,600);
-    background("#0a0a0a");
-}
-
-    </script> -->
-
+    <input id="tamanho" type="text" value="8"><br>
     <button onclick="create()">Criar</button><br><br>
-    <button onclick="sorting()">Sort</button>
+    <!-- <button onclick="sorting()">Sort</button> -->
+    <button onclick="merge()">Merge</button>
+    <button onclick="bubble()">Bubble</button>
+    <button onclick="strangeSort()">strangeSort</button>
 
 </body>
 </html>

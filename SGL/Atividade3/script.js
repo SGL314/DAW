@@ -1,13 +1,35 @@
 var nums = [];
-const qtd = 64;
-const vari = [1,20];
+var qtd = 4;
+var vari = [1,qtd];
 var pivot = -1,veri = -1,compareer=-1;
-
+var tempo = 0;
 
 function create(){
+    qtd = document.getElementById("tamanho").value;
+    vari = [1,qtd];
+
     for (var i=0;i<qtd;i++){
         nums[i] = Math.floor(Math.random()*(vari[1])+vari[0]);
     }
+    
+
+    // nums = [];
+    // var inds = []
+    // for (var i=0;i<qtd;i++){
+    //     inds.push(Math.floor(Math.random()*(vari[1])+vari[0]));
+    //     nums.push(0);
+    // }
+    // var k = 0;
+    // for (var i=0;i<qtd;i++){
+    //     k=(k+inds[i])%qtd;
+    //     while (nums[k]!=0){
+    //         k=(k+1)%qtd;
+    //         console.log(nums);
+    //     }
+    //     nums[k] = i+1;
+    // }
+    
+
     //
     show("e_a");
 }
@@ -26,7 +48,7 @@ function sorting(){
     console.log("ordenando ...");
     // bubble();
     // strangeSort();
-    merge();    
+    // merge();    
     console.log("ordenado");
     //
     show("e_e");
@@ -40,7 +62,7 @@ async function frac(lista){
 
     if (len == 2){
         colorama(lista[0],lista[1]);
-        await delay(250);
+        await delay(tempo);
         res = [lista[0],lista[1]];
         if (nums[lista[0]] > nums[lista[1]]){
             var a = nums[lista[0]];
@@ -63,18 +85,19 @@ async function frac(lista){
     a = await frac(a);
     b = await frac(b);
 
-    var ra = [],rb=[];
-    for (var i=0;i<a.length;i++){
-        ra.push(nums[a[i]]);
-    }
-    for (var i=0;i<b.length;i++){
-        rb.push(nums[b[i]]);
-    }
+    // var ra = [],rb=[];
+    // for (var i=0;i<a.length;i++){
+    //     ra.push(nums[a[i]]);
+    // }
+    // for (var i=0;i<b.length;i++){
+    //     rb.push(nums[b[i]]);
+    // }
 
-    console.log(">a>"+a+" = "+ra);
-    console.log(">b>"+b+" = "+rb);
+    // console.log(">a>"+a+" = "+ra);
+    // console.log(">b>"+b+" = "+rb);
     var all = [];
     var t_all = a.length+b.length;
+
     for (var i = 0;i<t_all/2;i++){
         all.push(nums[a[i]]);
     }
@@ -94,7 +117,7 @@ async function frac(lista){
 
     for (var i=0;i<len;i++){
         
-        await delay(250);
+        await delay(tempo);
         // console.log(i+"> a: "+a+" b: "+b+"("+put_ia+","+put_ib+")");
         if (put_ib && put_ia){
             colorama(a[0],b[0]);
@@ -117,7 +140,7 @@ async function frac(lista){
         }else if (put_ib==false){
             colorama(a[0],-1);
             res.push(a[0]);
-            console.log("a_"+a[0])
+            // console.log("a_"+a[0])
             // console.log("<>"+nums)
 
             a.shift();
@@ -129,7 +152,7 @@ async function frac(lista){
 
         if (put_ia == false && b.length > 0){
             res.push(b[0]);
-            console.log("b_"+b[0])
+            // console.log("b_"+b[0])
             // console.log("<>"+nums)
 
             b.shift();
@@ -142,14 +165,16 @@ async function frac(lista){
         }   
         
     }
-    var saida = [];
+    // var saida = [];
     for (var i=0;i<t_all;i++){
+        await delay(tempo);
+        colorama(res[i]%(all.length),-1);   
         nums[all_i[i]] = all[res[i]%(all.length)];
-        saida.push(all[res[i]%(all.length)]);
-        console.log("-"+all[res[i]%(all.length)]+"("+res[i]%(all.length));
+        // saida.push(all[res[i]%(all.length)]);
+        // console.log("-"+all[res[i]%(all.length)]+"("+res[i]%(all.length));
     }
 
-    console.log("<saida: "+saida);
+    // console.log("<saida: "+saida);
     return all_i;
 }
 
@@ -179,7 +204,7 @@ async function bubble(){
             }
             //
             // setTimeout(nada,500);  
-            await delay(250); 
+            await delay(tempo); 
         } 
     }
         
@@ -208,7 +233,7 @@ async function strangeSort(){
             }
             //
             // setTimeout(nada,500);  
-            await delay(250); 
+            await delay(tempo); 
         } 
     }
         
@@ -230,18 +255,16 @@ function nada(){}
 function colorama(c, v){
     compareer = (c!=-1) ? c : compareer;
     veri = (v!=-1) ? v : veri;
-    // draw();
 }
 
 function colorama3(c, v, p){
     compareer = (c!=-1) ? c : compareer;
     veri = v;
     pivot = p;
-    // draw();
 }
 
 function setup(){
-    createCanvas(600,600);
+    createCanvas(6000,800);
     
 }
 
