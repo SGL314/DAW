@@ -1,0 +1,117 @@
+
+body{
+    background-color:  rgba(47, 211, 217, 0.367);
+    align-items: center;
+    
+}
+.cabecalho{
+    display: flex;
+    flex-direction: row;
+}
+    .cabecalho h1{
+        font-size: 40px;
+    }
+    #cab-content{
+        display: flex;
+        flex-direction: row;
+
+        background-color: rgb(47, 211, 217);
+        width: 800px;
+        padding-right: 10px;;
+    }
+        #items-cab-content{
+            padding-right: 50px;
+            
+        }
+    #img{
+        border: 2px solid black;
+    }
+#h1-class{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: black;
+    font-size: 40px;
+    background-color:  rgb(47, 211, 217);
+}
+
+.sec{
+    display: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+    #blk{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center; 
+    }
+    #item{
+        align-items: center;
+        text-align: center;
+        padding-left: 40%;
+        padding-right: 40%;
+        width: 20%; 
+    }
+
+a{
+    color: rgb(5, 51, 255);
+    text-decoration: none;
+}
+
+.topo{
+    background-color: black;
+    color: antiquewhite;
+    font-size: 20px;
+    height:50px;
+
+    display: flex;
+    flex-direction: row;
+
+    /* padding-left: 50px; */
+}
+    .topo h2{
+        font-size: 20px;
+    }
+    #item2{
+        width:200px;
+        align-items: center;
+        text-align: center;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    .topo a{
+        color: antiquewhite;
+        text-decoration: none;
+    }
+
+
+#rodape{
+    background-color: black;
+    color: antiquewhite;
+    font-size: 20px;
+    height:100px;
+
+    display: flex;
+    flex-direction: row;
+
+    /* padding-left: 50px; */
+    /* padding-top: 20px; */
+}
+    #rodape h2{
+        font-size: 20px;
+    }
+    #item2{
+        width:200px;
+        align-items: center;
+        text-align: center;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    #rodape a{
+        color: antiquewhite;
+        text-decoration: none;
+    }
+
+

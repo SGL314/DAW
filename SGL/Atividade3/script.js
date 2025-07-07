@@ -264,7 +264,7 @@ function colorama3(c, v, p){
 }
 
 function setup(){
-    createCanvas(6000,800);
+    createCanvas(1800,800);
     
 }
 
