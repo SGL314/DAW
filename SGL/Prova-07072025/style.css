@@ -52,10 +52,26 @@ body{
         padding-right: 40%;
         width: 20%; 
     }
+    #butReturn{
+        /* align-items: center; */
+        /* text-align: center; */
+
+        margin-left: 40%;
+        /* spacing-right: 50%; */
+        width: 20%;
+
+        height: 38px;
+        background-color: black;
+        border-radius: 10px;
+    }
 
 a{
-    color: rgb(5, 51, 255);
+    font-size: 30px;
+    color: antiquewhite;
     text-decoration: none;
+}
+a:hover{
+    color: rgb(47, 211, 217); 
 }
 
 .topo{
@@ -84,6 +100,9 @@ a{
         color: antiquewhite;
         text-decoration: none;
     }
+    .topo a:hover{
+        color: rgb(47, 211, 217); 
+    }
 
 
 #rodape{
@@ -111,7 +130,9 @@ a{
 
     #rodape a{
         color: antiquewhite;
-        text-decoration: none;
+        
     }
-
+    #rodape a:hover{
+        color: rgb(47, 211, 217); 
+    }
 
