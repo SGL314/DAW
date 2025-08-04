@@ -29,26 +29,17 @@
   <main class="main-area">
     <section class="section-files" id="painel">
       <h2>FILES</h2><br>
+      <input type="file" id="seletor" webkitdirectory multiple>
       <div class="files">
-        <div class="file"><h3>file001</h3></div>
-        <div class="file"><h3>file002</h3></div>
-        <div class="file"><h3>file003</h3></div>
-        <div class="file"><h3>file004</h3></div>
-        <div class="file"><h3>file005</h3></div>
-        <div class="file"><h3>file001</h3></div>
-        <div class="file"><h3>file002</h3></div>
-        <div class="file"><h3>file003</h3></div>
-        <div class="file"><h3>file004</h3></div>
-        <div class="file"><h3>file005</h3></div>
-        <div class="file"><h3>file001</h3></div>
-        <div class="file"><h3>file002</h3></div>
-        <div class="file"><h3>file003</h3></div>
-        <div class="file"><h3>file004</h3></div>
-        <div class="file"><h3>file005</h3></div>
+        <button class="buttonOpenFile" onclick="getContent('kapa.txt')">
+          <h3>kapa_.txt</h3>
+        </button>
+        <button class="buttonOpenFile" onclick="getContent('kapa.txt')">
+          <h3>kapa_.txt</h3>
+        </button>
       </div>
       <div class="alca" id="alca"></div>
-    </section>
-    
+    </section>    
 
     <section class="middle-part">
       <section class="janelas">
@@ -57,10 +48,9 @@
         </h2>
       </section>
       <section class="editor">
-        <textarea placeholder="Insira o código aqui ..."></textarea>
+        <textarea id="textArea" placeholder="Insira o código aqui ..."></textarea>
       </section>
-    </section>
-    
+    </section>    
     
     <section class="right-part">
       <section class="sap2">
@@ -87,13 +77,10 @@
       <button class="btn">Entrar</button>
     </div>    
   </aside>
-
-  <footer class="footer">
-    <p>PROCESSING | CRÉDITOS</p>
-  </footer>
+  
   <script>
     const painel = document.getElementById('painel');
-    const painel2 = document.getElementByClassName('rigth-part');
+    const painel2 = document.getElementsByClassName('rigth-part')[0];
     const alca = document.getElementById('alca');
   
     let arrastando = false;
@@ -116,6 +103,78 @@
     document.addEventListener('mouseup', () => {
       arrastando = false;
     });
+
+    function freshFiles(){
+      document.getElementById('pasta').addEventListener('change', function (e) {
+        const arquivos = e.target.files;
+        for (let arquivo of arquivos) {
+            console.log(arquivo.webkitRelativePath); // mostra o caminho relativo
+        }
+      });
+    }
+
+    const seletor = document.getElementById('seletor');
+    const lista = document.getElementsByClassName('files')[0];
+    let arquivos;
+
+    seletor.addEventListener('change', (event) => {
+      lista.innerHTML = '';
+      arquivos = event.target.files;
+      console.log("entrando");
+
+      for (let arquivo of arquivos) {
+        const item = document.createElement('button');
+        item.className = "buttonOpenFile";
+        // item.setAttribute('onclick',"getContent('"+arquivo.name+"')");
+
+        const areaText = document.createElement('h3');
+        areaText.textContent = arquivo.name;
+        item.appendChild(areaText);
+
+        lista.appendChild(item);
+        console.log("item colocado");
+
+        getContent();
+      }
+    });
+
+    function getContent(){
+
+      const botoes = document.querySelectorAll('.buttonOpenFile');
+
+      botoes.forEach((botao, index) => {
+        botao.addEventListener('click', function (event) {
+          document.getElementById('textArea').value = '';
+          console.log("botão acionado");
+          let arquivo;
+          let nomeArquivo = botao.children[0].innerHTML;  
+          console.log("nome: "+nomeArquivo);
+
+          for (let arq of arquivos){
+            console.log("   | "+arq.name);
+            if (arq.name == nomeArquivo){
+              arquivo = arq;
+              break;
+            }
+          }
+          if (!arquivo) return;
+
+          const leitor = new FileReader();
+
+          leitor.onload = function(e) {
+              const texto = e.target.result;
+              
+              document.getElementById('textArea').value = texto;
+          };
+
+          leitor.readAsText(arquivo);
+        });
+      });
+    }
   </script>
+
+  <footer class="footer">
+    <p>PROCESSING | CRÉDITOS</p>
+  </footer>
 </body>
 </html>
