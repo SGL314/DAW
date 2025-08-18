@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador SAP2</title>
+  <link rel="icon" type="image/x-icon" href="http://www.coltec.ufmg.br/coltec-ufmg/wp-content/uploads/2018/05/cropped-logo-0.png">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/buttons.css">
+  <link rel="stylesheet" href="../css/editor.css">
+  <link rel="stylesheet" href="../css/output.css">
+  <link rel="stylesheet" href="../css/login.css">
+  <link rel="stylesheet" href="../css/windows.css">
+  <link rel="stylesheet" href="../css/slider.css">
+  <link rel="stylesheet" href="../css/files.css">
+</head>
+<body class="dark-theme">
+  <header class="top-bar">
+    <h1>Simulador SAP2<br></h1>
+    <div class="buttons">
+      <button class="btn">COMPILAR</button>
+      <button class="btn">EXECUTAR</button>
+      <button class="btn">HZ</button>
+      <button class="btn">TEMPO</button>
+      <button class="btn">CONF</button>
+    </div>
+  </header>
+
+  <main class="main-area">
+    <section class="section-files" id="painel">
+      <h2>FILES</h2><br>
+      <input type="file" id="seletor" webkitdirectory multiple>
+      <div class="files">
+        <button class="buttonOpenFile" onclick="getContent('kapa.txt')">
+          <h3>kapa_.txt</h3>
+        </button>
+      </div>
+      <div class="alca" id="alca"></div>
+    </section>    
+
+    <section class="middle-part">
+      <section class="janelas">
+        <h2>
+          Janelas : 
+        </h2>
+        <h2 id="identificador-arquivo-acessado"> Nenhum arquivo selecionado</h2>
+        <br><br>
+        <button id="button-save">Salvar</button>
+      </section>
+      <section class="editor">  
+        <textarea id="textArea" placeholder="Insira o código aqui ..."></textarea>
+      </section>
+    </section>    
+    
+    <section class="right-part">
+      <section class="sap2">
+        <h2>SAP 2</h2>
+      </section>
+
+      <section class="hex-display">
+        <h2>HEXA - DISPLAY</h2>
+        <div class="hex-output">--:--:--</div>
+      </section>
+  
+      <section class="output">
+        <h2>OUTPUT</h2>
+        <pre class="output-log">Aguardando execução ...</pre>
+      </section>
+    </section>    
+  </main>
+
+  <aside class="login-window">
+    <h3>Login</h3>
+    <div class="open-hover">
+      <input type="text" placeholder="Utilizador">
+      <input type="password" placeholder="Senha">
+      <button class="btn">Entrar</button>
+    </div>    
+  </aside>
+  
+  <script>
+    const painel = document.getElementById('painel');
+    const painel2 = document.getElementsByClassName('rigth-part')[0];
+    const alca = document.getElementById('alca');
+  
+    let arrastando = false;
+  
+    alca.addEventListener('mousedown', (e) => {
+      arrastando = true;
+      e.preventDefault(); // previne seleção de texto
+    });
+  
+    document.addEventListener('mousemove', (e) => {
+      if (arrastando) {
+        const novaLargura = e.clientX;
+        const novaAltura = e.clientY - 20;
+        painel.style.width = novaLargura + 'px';
+        painel.style.height = novaAltura + 'px';
+        painel2.style.height = novaAltura + 'px';
+      }
+    });
+  
+    document.addEventListener('mouseup', () => {
+      arrastando = false;
+    });
+
+    function freshFiles(){
+      document.getElementsByClassName('files')[0].addEventListener('change', function (e) {
+        const arquivos = e.target.files;
+        // for (let arquivo of arquivos) {
+        //     console.log(arquivo.webkitRelativePath); // mostra o caminho relativo
+        // }
+      });
+    }
+
+    const seletor = document.getElementById('seletor');
+    const lista = document.getElementsByClassName('files')[0];
+    var arquivos = [];
+
+    var janelas = document.getElementById("janelas");
+    save.addEventListener()
+
+    seletor.addEventListener('change', (event) => {
+      lista.innerHTML = '';
+      var arqs = event.target.files;
+      for (var arq of arqs){
+        arquivos.push(arq.name);
+      }
+      console.log("entrando");
+
+      for (let arquivo of arquivos) {
+        const item = document.createElement('button');
+        item.className = "buttonOpenFile";
+        item.dataset.id = arquivo;
+
+        item.addEventListener('click', function (event) {
+          document.getElementById('textArea').value = '';
+          var arquivo;
+          var nomeArquivo = item.dataset.id;
+          for (let arq of arquivos){
+            if (arq == nomeArquivo){
+              console.log("nome coletado: "+nomeArquivo);
+              arquivo = arq;
+              break;
+            }
+          }
+          if (!arquivo) return;
+          // document.getElementById("identificador-arquivo-acessado").textContent = arquivo;
+          // document.getElementById("button-save").dataset.id = arquivo;
+          // document.getElementById("button-save").addEventListener('click',(event) => {
+          //   salvarArquivo(event.target.id);
+          // });
+          lerArquivo(arquivo);
+          
+        });
+
+        const areaText = document.createElement('h3');
+        areaText.textContent = arquivo;
+        item.appendChild(areaText);
+
+        lista.appendChild(item);
+        console.log("item colocado");
+      }
+      // freshFiles();
+    });
+
+    function lerArquivo(arquivo) {
+      const caminho = "../data/files/"+arquivo;
+      fetch('lerArquivo.php?caminho=' + encodeURIComponent(caminho))
+        .then(resp => {
+          if (!resp.ok) throw new Error('Erro: ' + resp.status);
+          return resp.text();
+        })
+        .then(texto => {
+          document.getElementById('textArea').value = texto;
+        })
+        .catch(console.error);
+    }
+    
+    function salvarArquivo(arquivo) {
+      const caminho = "../data/files/"+arquivo;
+      const conteudo = document.getElementById('textArea').value;
+
+      fetch('salvarArquivo.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `caminho=${encodeURIComponent(caminho)}&conteudo=${encodeURIComponent(conteudo)}`
+      })
+      .then(resp => resp.text())
+      .then(msg => alert(msg))
+      .catch(console.error);
+    }
+  </script>
+
+  <footer class="footer">
+    <p>PROCESSING | CRÉDITOS</p>
+  </footer>
+</body>
+</html>

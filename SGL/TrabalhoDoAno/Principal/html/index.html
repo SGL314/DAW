@@ -34,9 +34,6 @@
         <button class="buttonOpenFile" onclick="getContent('kapa.txt')">
           <h3>kapa_.txt</h3>
         </button>
-        <button class="buttonOpenFile" onclick="getContent('kapa.txt')">
-          <h3>kapa_.txt</h3>
-        </button>
       </div>
       <div class="alca" id="alca"></div>
     </section>    
@@ -44,13 +41,16 @@
     <section class="middle-part">
       <section class="janelas">
         <h2>
-          Janelas
+          Janelas : 
         </h2>
+        <h2 id="identificador-arquivo-acessado"> Nenhum arquivo selecionado</h2>
+        <br><br>
+        <button id="button-save">Salvar</button>
       </section>
-      <section class="editor">
+      <section class="editor">  
         <textarea id="textArea" placeholder="Insira o código aqui ..."></textarea>
       </section>
-    </section>    
+    </section>   
     
     <section class="right-part">
       <section class="sap2">
@@ -105,71 +105,93 @@
     });
 
     function freshFiles(){
-      document.getElementById('pasta').addEventListener('change', function (e) {
+      document.getElementsByClassName('files')[0].addEventListener('change', function (e) {
         const arquivos = e.target.files;
-        for (let arquivo of arquivos) {
-            console.log(arquivo.webkitRelativePath); // mostra o caminho relativo
-        }
+        // for (let arquivo of arquivos) {
+        //     console.log(arquivo.webkitRelativePath); // mostra o caminho relativo
+        // }
       });
     }
 
     const seletor = document.getElementById('seletor');
     const lista = document.getElementsByClassName('files')[0];
-    let arquivos;
+    var arquivos = [];
+  
+    document.getElementById("button-save").addEventListener('click',function alpha(event) {
+      console.log("arquivo: "+event.target.dataset.id)
+      salvarArquivo(event.target.dataset.id);
+    });
+    
 
     seletor.addEventListener('change', (event) => {
       lista.innerHTML = '';
-      arquivos = event.target.files;
+      var arqs = event.target.files;
+      for (var arq of arqs){
+        arquivos.push(arq.name);
+      }
       console.log("entrando");
 
       for (let arquivo of arquivos) {
         const item = document.createElement('button');
         item.className = "buttonOpenFile";
-        // item.setAttribute('onclick',"getContent('"+arquivo.name+"')");
+        item.dataset.id = arquivo;
 
-        const areaText = document.createElement('h3');
-        areaText.textContent = arquivo.name;
-        item.appendChild(areaText);
-
-        lista.appendChild(item);
-        console.log("item colocado");
-
-        getContent();
-      }
-    });
-
-    function getContent(){
-
-      const botoes = document.querySelectorAll('.buttonOpenFile');
-
-      botoes.forEach((botao, index) => {
-        botao.addEventListener('click', function (event) {
+        item.addEventListener('click', function (event) {
           document.getElementById('textArea').value = '';
-          console.log("botão acionado");
-          let arquivo;
-          let nomeArquivo = botao.children[0].innerHTML;  
-          console.log("nome: "+nomeArquivo);
-
+          var arquivo;
+          var nomeArquivo = item.dataset.id;
           for (let arq of arquivos){
-            console.log("   | "+arq.name);
-            if (arq.name == nomeArquivo){
+            if (arq == nomeArquivo){
+              console.log("nome coletado: "+nomeArquivo);
               arquivo = arq;
               break;
             }
           }
           if (!arquivo) return;
 
-          const leitor = new FileReader();
+          document.getElementById("identificador-arquivo-acessado").textContent = arquivo;
+          document.getElementById("button-save").dataset.id = arquivo;
+          
 
-          leitor.onload = function(e) {
-              const texto = e.target.result;
-              
-              document.getElementById('textArea').value = texto;
-          };
-
-          leitor.readAsText(arquivo);
+          lerArquivo(arquivo);
+          
         });
-      });
+
+        const areaText = document.createElement('h3');
+        areaText.textContent = arquivo;
+        item.appendChild(areaText);
+
+        lista.appendChild(item);
+        console.log("item colocado");
+      }
+      // freshFiles();
+    });
+
+    function lerArquivo(arquivo) {
+      const caminho = "../data/files/"+arquivo;
+      fetch('lerArquivo.php?caminho=' + encodeURIComponent(caminho))
+        .then(resp => {
+          if (!resp.ok) throw new Error('Erro: ' + resp.status);
+          return resp.text();
+        })
+        .then(texto => {
+          document.getElementById('textArea').value = texto;
+        })
+        .catch(console.error);
+    }
+    
+    function salvarArquivo(arquivo) {
+      const caminho = "../data/files/"+arquivo;
+      const conteudo = document.getElementById('textArea').value;
+
+      fetch('salvarArquivo.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `caminho=${encodeURIComponent(caminho)}&conteudo=${encodeURIComponent(conteudo)}`
+      })
+      .then(resp => resp.text())
+      .then(msg => alert(msg))
+      .catch(console.error);
     }
   </script>
 

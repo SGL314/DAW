@@ -1,0 +1,7 @@
+Entre dentro da pasta Principal
+
+Rode:
+php -S localhost:8000
+
+Entre no navegador e digite:
+https://localhost:8000/html/index.hmtl
