@@ -1,0 +1,27 @@
+[
+    {
+        "enunciado": "q1",
+        "alternativas": ["1", "2", "3"],
+        "resposta": 1
+    },
+    {
+        "enunciado": "q2",
+        "alternativas": ["a", "b", "c"],
+        "resposta": 1
+    },
+    {
+        "enunciado": "q3",
+        "alternativas": ["a", "b", "c"],
+        "resposta": 0
+    },
+    {
+        "enunciado": "q4",
+        "alternativas": ["a", "b", "c"],
+        "resposta": 2
+    },
+    {
+        "enunciado": "q5",
+        "alternativas": ["a", "b", "c"],
+        "resposta": 1
+    }
+]
