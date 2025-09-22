@@ -4,7 +4,8 @@
 
     ?>
 <form method="post" action="">
-    input
+    <input type="text" name="username" placeholder="Usuário">
+    <input type="password" name="password" placeholder="Senha">
 </form>
     <?php
 

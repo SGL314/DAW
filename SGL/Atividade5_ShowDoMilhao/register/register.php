@@ -32,7 +32,7 @@ class Usuario {
     $login = $_POST["username"];
     $found = false;
 
-    $users = json_decode(file_get_contents("../users.json"),true);
+    $users = json_decode(file_get_contents("../data/users.json"),true);
     for ($i=0;$i<count($users);$i++){
         $user = $users[$i];
         // print_r($user["login"]);
@@ -47,7 +47,7 @@ class Usuario {
         $users[] = $user;
         
         $json = json_encode($users, JSON_PRETTY_PRINT);
-        file_put_contents("../users.json", $json);
+        file_put_contents("../data/users.json", $json);
         echo '<script>alert("Usuário criado");</script>';
     }
 ?>
