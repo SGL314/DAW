@@ -3,18 +3,21 @@
         "login": "samu",
         "senha": "asd",
         "email": "a2023951482@teiacoltec.org",
-        "nome": "problema"
+        "nome": "problema",
+        "qst": 4
     },
     {
         "login": "samus",
         "senha": "asd",
         "email": "samue@gmail",
-        "nome": "samuel"
+        "nome": "samuel",
+        "qst": 0
     },
     {
         "login": "samuell",
         "senha": "1234",
         "email": "samu@g",
-        "nome": "samus"
+        "nome": "samus",
+        "qst": 0
     }
 ]

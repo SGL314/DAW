@@ -4,8 +4,8 @@
     $rodape = file_get_contents("rodape.inc");
     echo $menu;
 
+    session_start();
     if (session_status() === PHP_SESSION_NONE) {
-        session_start();
         $_SESSION["qst"] = 0;
         $_SESSION["logged"] = false;
     }
@@ -15,7 +15,6 @@
     }
 
     $id = $_SESSION["qst"];
-    $_SESSION["qst"]+=1;
 
     header("Location: questions/index.php?id=$id");
     exit;

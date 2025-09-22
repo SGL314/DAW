@@ -3,9 +3,10 @@
     echo getMenu();
 
     ?>
-<form method="post" action="">
-    <input type="text" name="username" placeholder="Usuário">
-    <input type="password" name="password" placeholder="Senha">
+<form method="post" action="login.php">
+    <input type="text" name="username" placeholder="Usuário"><br>
+    <input type="password" name="password" placeholder="Senha"><br>
+    <input type="submit" value="Login">     
 </form>
     <?php
 

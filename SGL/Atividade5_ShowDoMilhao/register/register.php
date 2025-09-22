@@ -4,13 +4,14 @@ class Usuario {
     public $login;
     public $senha;
     public $email;
-    public $nome;
+    public $nome, $qst;
 
-    public function __construct($login, $senha, $email, $nome) {
+    public function __construct($login, $senha, $email, $nome, $qst) {
         $this->login = $login;
         $this->senha = $senha;
         $this->email = $email;
         $this->nome  = $nome;
+        $this->$qst = $qst;
     }
 
     // Converte o objeto em array para salvar em JSON
@@ -19,7 +20,8 @@ class Usuario {
             "login" => $this->login,
             "senha" => $this->senha,
             "email" => $this->email,
-            "nome"  => $this->nome
+            "nome"  => $this->nome,
+            "qst" => $this->qst
         ];
     }
 }
@@ -43,7 +45,7 @@ class Usuario {
         }
     }
     if (!$found){
-        $user = new Usuario($login,$senha,$email,$name);
+        $user = new Usuario($login,$senha,$email,$name,0);
         $users[] = $user;
         
         $json = json_encode($users, JSON_PRETTY_PRINT);
